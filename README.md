@@ -12,7 +12,7 @@ The framework connects replaceable models for roleplay, character design, speech
 
 https://github.com/user-attachments/assets/be8b3b59-ce28-4387-8f2b-dceb23f7b65c
 
-**30-second tour:** [English](https://github.com/user-attachments/assets/be8b3b59-ce28-4387-8f2b-dceb23f7b65c) · [简体中文](https://github.com/user-attachments/assets/556ac18a-fe2e-4d63-8d5b-b694ded76a69) · [日本語](https://github.com/user-attachments/assets/47e32f4e-94e6-4a0f-978d-8a36a8303a89)
+**30-second tour:** [English](README.md) · [简体中文](README.zh-CN.md) · [日本語](README.ja.md)
 
 [All guides](guides/index.md)
 
