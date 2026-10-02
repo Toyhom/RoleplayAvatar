@@ -11,6 +11,7 @@
 
 - [完整安装](setup.md)
 - [模型与显存](models.md)
+- [本地推理与性能](performance.md)
 - [供应商与提示词](providers.md)
 - [声线设计](voice.md)
 - [角色资源](resources.md)

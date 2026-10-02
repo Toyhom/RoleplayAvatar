@@ -20,6 +20,7 @@
 | Codex / Claude Code にセットアップを依頼する | [コピー用の手順](guides/ja/ai-setup.md) |
 | GPU に合わせてモデルを選ぶ | [モデルと設定](guides/ja/models.md) |
 | ローカル環境を構築する | [詳細なインストール手順](guides/ja/setup.md) |
+| ローカル推論の高速化と VRAM 調整 | [性能設定](guides/ja/performance.md) |
 | アプリと連携する | [API](guides/ja/api.md) · [構成](guides/ja/architecture.md) |
 | 独自モデルやプロンプトを評価する | [研究ガイド](guides/ja/research.md) |
 

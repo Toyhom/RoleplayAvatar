@@ -2,6 +2,8 @@
 
 [English](../setup.md) · [简体中文](setup.md) · [日本語](../ja/setup.md)
 
+vLLM、SGLang、llama.cpp 和各模块显存参数见[本地推理与性能配置](performance.md)。
+
 CPU Web 进程协调独立模型服务。各服务使用自己的环境和 GPU 分配。实时部署通常包括对话、语音、识别、音频表情，以及角色创建工作进程。
 
 ## 1. 准备应用

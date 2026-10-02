@@ -12,8 +12,9 @@ sys.modules["flash_attn"] = None
 import torch
 from PIL import Image
 
+from roleplay_avatar.image_runtime import configure_pipeline
 from roleplay_avatar.model_metadata import model_metadata
-from roleplay_avatar.models import prompt_text
+from roleplay_avatar.models import model_options, prompt_text
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--model", required=True)
@@ -39,8 +40,7 @@ else:
     steps = args.steps or 30
     extra = {"negative_prompt": " ", "true_cfg_scale": 4.0}
     metadata = model_metadata("image_edit", args.model)
-# Load text and image models sequentially to bound resident VRAM.
-pipe.enable_model_cpu_offload()
+runtime = configure_pipeline(pipe, model_options("image" if backend == "flux2" else "image_edit"))
 image = Image.open(args.job / "input.png").convert("RGB")
 prompt = (
     "Edit the reference image into a polished, detailed 3D animated character design. "
@@ -79,6 +79,7 @@ output.images[0].save(args.job / "concept.png")
     json.dumps(
         {
             **metadata,
+            "runtime": runtime,
             "prompt": prompt,
             "seed": request["seed"],
             "steps": steps,

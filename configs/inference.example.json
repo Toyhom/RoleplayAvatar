@@ -1,0 +1,34 @@
+{
+  "models": {
+    "roleplay": {"path": "/srv/models/my-chat-checkpoint"},
+    "image": {"offload": "model", "vae_tiling": true, "vae_slicing": true, "compile": false}
+  },
+  "inference": {
+    "roleplay": {
+      "engine": "vllm",
+      "python": "/srv/envs/avatar-vllm/bin/python",
+      "served_model": "avatar-roleplay",
+      "port": 18110,
+      "context": 8192,
+      "dtype": "auto",
+      "tensor_parallel": 1,
+      "gpu_memory_utilization": 0.5,
+      "max_sequences": 4,
+      "max_batch_tokens": 2048,
+      "prefix_caching": true,
+      "chunked_prefill": true,
+      "kv_cache_dtype": "auto",
+      "quantization": null,
+      "template_kwargs": {"enable_thinking": false}
+    }
+  },
+  "agents": {
+    "default": {
+      "provider": "openai-compatible",
+      "url": "http://127.0.0.1:18110/v1",
+      "model": "avatar-roleplay",
+      "require_key": false,
+      "extra_body": {"chat_template_kwargs": {"enable_thinking": false}}
+    }
+  }
+}

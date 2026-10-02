@@ -151,7 +151,7 @@ def download(entry, *, token_env=None):
     return str(path)
 
 
-def preset_config(preset, root, creation=False):
+def preset_config(preset, root, creation=False, *, engine=None, inference_python=None):
     plan = download_plan(preset, root, "https://huggingface.co", creation)
     config = {
         "models": {p["role"]: {k: p[k] for k in ("path", "repo", "revision", "adapter")} for p in plan},
@@ -173,4 +173,27 @@ def preset_config(preset, root, creation=False):
             }
         )
         config["models"]["roleplay"].update(device_map="balanced", context=8192)
+    if engine:
+        from .inference import EngineConfig, launch_plan
+
+        config["inference"] = {}
+        roles = ["controller", "roleplay"] if preset == "showcase" else ["roleplay"]
+        for role in roles:
+            if role not in config["models"]:
+                raise ValueError("An inference engine preset needs a roleplay model")
+            entry = {
+                "engine": engine, "served_model": "avatar-" + role,
+                "port": 18112 if role == "roleplay" and preset == "showcase" else 18110,
+                "context": 8192, "tensor_parallel": 2 if preset == "showcase" and role == "roleplay" else 1,
+                "gpu_memory_utilization": 0.9 if preset in {"quality", "showcase"} and role == "roleplay" else 0.5,
+                "max_sequences": 4, "max_batch_tokens": 2048, "prefix_caching": True, "chunked_prefill": True,
+            }
+            if "qwen3" in config["models"][role]["repo"].lower():
+                entry["template_kwargs"] = {"enable_thinking": False}
+            if inference_python:
+                entry["python"] = inference_python
+            config["inference"][role] = entry
+            provider = launch_plan(role, config=EngineConfig(**entry), model=config["models"][role]["path"])["agent"]
+            key = "roleplay" if preset == "showcase" and role == "roleplay" else "default"
+            config["agents"][key].update(provider)
     return config

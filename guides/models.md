@@ -2,6 +2,8 @@
 
 [English](models.md) · [简体中文](zh-CN/models.md) · [日本語](ja/models.md)
 
+Configure vLLM, SGLang, llama.cpp and module-specific memory settings in [Local inference and performance](performance.md).
+
 The framework separates model selection from application behavior. Paths choose checkpoints; adapters implement inference; agents select local or hosted endpoints. The [machine-readable catalog](../src/roleplay_avatar/data/models.json) records repository IDs, fixed revisions, adapters, license metadata and approximate inference memory.
 
 ## Choose a preset

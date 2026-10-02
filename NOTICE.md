@@ -11,6 +11,11 @@ Original Roleplay Avatar framework code uses the [MIT license](LICENSE). The fol
 | CosyVoice | [FunAudioLLM/CosyVoice](https://github.com/FunAudioLLM/CosyVoice) | Apache-2.0 |
 | Whisper | [OpenAI Whisper](https://github.com/openai/whisper), [model repositories](https://huggingface.co/openai) | MIT source; checkpoint license metadata in the catalog |
 | Transformers, Diffusers | [Hugging Face](https://github.com/huggingface) | Apache-2.0 |
+| vLLM | [vllm-project/vllm](https://github.com/vllm-project/vllm) | Apache-2.0 |
+| SGLang | [sgl-project/sglang](https://github.com/sgl-project/sglang) | Apache-2.0 |
+| llama.cpp | [ggml-org/llama.cpp](https://github.com/ggml-org/llama.cpp) | MIT |
+| faster-whisper / CTranslate2 | [SYSTRAN/faster-whisper](https://github.com/SYSTRAN/faster-whisper), [OpenNMT/CTranslate2](https://github.com/OpenNMT/CTranslate2) | MIT |
+| FlashAttention / TensorRT | [Dao-AILab/flash-attention](https://github.com/Dao-AILab/flash-attention), [NVIDIA/TensorRT](https://github.com/NVIDIA/TensorRT) | BSD-3-Clause / Apache-2.0 source; NVIDIA binary distribution terms |
 | rembg / BiRefNet | [rembg](https://github.com/danielgatis/rembg), [BiRefNet](https://github.com/ZhengPeng7/BiRefNet) | MIT |
 | MediaPipe FaceLandmarker | [Google MediaPipe](https://ai.google.dev/edge/mediapipe/solutions/vision/face_landmarker) | Apache-2.0; versioned task asset from Google's model endpoint |
 | DLP3D audio2face / UniTalker ONNX | [dlp3d-ai/audio2face](https://github.com/dlp3d-ai/audio2face) | MIT source; checkpoint distributed by the linked upstream release |

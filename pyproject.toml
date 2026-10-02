@@ -11,10 +11,13 @@ dependencies = ["fastapi>=0.115,<1", "pydantic>=2.10,<3", "uvicorn>=0.34,<1", "w
 
 [project.optional-dependencies]
 download = ["huggingface-hub>=0.34,<1"]
-dev = ["pytest>=8,<10", "httpx>=0.28,<1", "ruff>=0.11,<1"]
+dev = ["pytest>=8,<10", "httpx>=0.28,<1", "ruff>=0.11,<1", "numpy>=1.26,<3"]
 
 [project.scripts]
 avatar = "roleplay_avatar.cli:main"
+
+[project.entry-points."vllm.general_plugins"]
+avatar_uuid_devices = "roleplay_avatar.vllm_devices:register"
 
 [tool.setuptools.packages.find]
 where = ["src"]

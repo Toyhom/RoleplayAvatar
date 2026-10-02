@@ -2,6 +2,8 @@
 
 [English](ai-setup.md) · [简体中文](zh-CN/ai-setup.md) · [日本語](ja/ai-setup.md)
 
+Configure vLLM, SGLang, llama.cpp and module-specific memory settings in [Local inference and performance](performance.md).
+
 Open this repository in Codex or Claude Code, then paste the block below. Fill in the first four lines when you have a preference; the assistant can inspect the machine and suggest values.
 
 ```text

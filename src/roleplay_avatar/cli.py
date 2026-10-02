@@ -40,9 +40,22 @@ def main():
     models.add_argument("--vram-gib", type=float, default=0)
     models.add_argument("--gpus", type=int, default=1)
     models.add_argument("--output", type=Path, default=Path("configs/models.local.json"))
+    models.add_argument("--engine", choices=["vllm", "sglang"], help="Configure accelerated local LLM serving")
+    models.add_argument("--inference-python", help="Python in the selected inference engine environment")
+    inference = commands.add_parser("inference", help="Plan or start a configured local inference engine")
+    inference.add_argument("action", choices=["plan", "start"])
+    inference.add_argument("--role", default="roleplay")
+    inference.add_argument("--model", help="Override the configured checkpoint path")
     args = parser.parse_args()
     root = args.root.resolve()
-    if args.command == "doctor":
+    if args.command == "inference":
+        from .inference import launch_plan, start
+
+        if args.action == "plan":
+            print(json.dumps(launch_plan(args.role, model=args.model), indent=2))
+        else:
+            start(args.role, model=args.model)
+    elif args.command == "doctor":
         from .doctor import inspect
         print(json.dumps(inspect(), indent=2))
     elif args.command == "models":
@@ -54,7 +67,8 @@ def main():
         elif args.action == "recommend":
             print(json.dumps(recommend(args.vram_gib, args.gpus), indent=2))
         elif args.action == "configure":
-            result = preset_config(args.selection, args.model_root, args.creation)
+            result = preset_config(args.selection, args.model_root, args.creation,
+                                   engine=args.engine, inference_python=args.inference_python)
             if args.output.exists():
                 raise SystemExit(f"Configuration exists: {args.output}. Choose a new --output path.")
             args.output.parent.mkdir(parents=True, exist_ok=True)

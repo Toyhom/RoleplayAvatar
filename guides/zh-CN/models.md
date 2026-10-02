@@ -2,6 +2,8 @@
 
 [English](../models.md) · [简体中文](models.md) · [日本語](../ja/models.md)
 
+vLLM、SGLang、llama.cpp 和各模块显存参数见[本地推理与性能配置](performance.md)。
+
 模型路径选择检查点，适配器实现推理，智能体选择本地或远程接口。[机器可读目录](../../src/roleplay_avatar/data/models.json)记录仓库 ID、固定版本、适配器、许可和预计显存。
 
 ## 硬件预设

@@ -11,6 +11,7 @@
 
 - [Installation](setup.md)
 - [Models and memory](models.md)
+- [Local inference and performance](performance.md)
 - [Providers and prompts](providers.md)
 - [Voice design](voice.md)
 - [Character resources](resources.md)

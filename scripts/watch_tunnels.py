@@ -7,11 +7,15 @@ import os
 import shlex
 import signal
 import subprocess
+import sys
 import time
 import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+from roleplay_avatar.service_health import probe
+
 STATE = ROOT / "outputs/services"
 OPENER = urllib.request.build_opener(urllib.request.ProxyHandler({}))
 ALIASES = {"system-2": "system2", "system-3": "system3"}
@@ -19,11 +23,7 @@ failures = {}
 
 
 def healthy(port):
-    try:
-        with OPENER.open(f"http://127.0.0.1:{port}/healthz", timeout=3) as response:
-            return json.load(response).get("status") == "ready"
-    except (OSError, ValueError):
-        return False
+    return probe(port, opener=OPENER).get("status") == "ready"
 
 
 def recover(name, record):
@@ -32,10 +32,9 @@ def recover(name, record):
     if not 1 <= port <= 65535:
         return
     code = (
-        "import urllib.request,json; "
-        "o=urllib.request.build_opener(urllib.request.ProxyHandler({})); "
-        f"r=o.open('http://127.0.0.1:{port}/healthz',timeout=3); "
-        "assert json.load(r).get('status')=='ready'"
+        f"import sys; sys.path.insert(0, {str(ROOT / 'src')!r}); "
+        "from roleplay_avatar.service_health import probe; "
+        f"assert probe({port}).get('status')=='ready'"
     )
     options = record.get("ssh_options", ["-C", "-o", "IPQoS=none"])
     probe = subprocess.run(["ssh", *options, "-o", "ConnectTimeout=5", alias, "python3", "-c", shlex.quote(code)],

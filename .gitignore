@@ -20,6 +20,9 @@ node_modules/
 characters/*/voice/candidate_*.json
 *.onnx
 *.safetensors
+*.gguf
+*.engine
+*.plan
 *.pt
 *.pth
 

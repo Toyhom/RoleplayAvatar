@@ -2,6 +2,8 @@
 
 [English](setup.md) · [简体中文](zh-CN/setup.md) · [日本語](ja/setup.md)
 
+Configure vLLM, SGLang, llama.cpp and module-specific memory settings in [Local inference and performance](performance.md).
+
 The CPU web process coordinates independent model services. Each service can run in its own environment and GPU allocation. A typical live installation has dialogue, speech, ASR and audio-to-face services, plus a worker for creating characters.
 
 ## 1. Prepare the application

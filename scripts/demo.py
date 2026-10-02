@@ -28,7 +28,8 @@ for line in (ROOT / ".local.env").read_text().splitlines():
 owner = config["AVATAR_OWNER"]
 os.environ.update(config)
 sys.path.insert(0, str(ROOT / "src"))
-from roleplay_avatar.models import agent_config, model_path
+from roleplay_avatar.models import agent_config, configuration, model_path
+from roleplay_avatar.service_health import probe
 
 opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
 parser = argparse.ArgumentParser()
@@ -46,11 +47,7 @@ def gpuq(*argv):
 
 
 def health(port, route="/healthz"):
-    try:
-        with opener.open(f"http://127.0.0.1:{port}{route}", timeout=3) as response:
-            return json.load(response)
-    except (OSError, ValueError, urllib.error.URLError):
-        return {"status": "unavailable"}
+    return probe(port, route, opener=opener)
 
 
 def ssh_options(alias):
@@ -127,14 +124,22 @@ specs = {} if "tts" in group_services else {
         "model": str(model_path("tts", check=True)),
     },
 }
-if agent_config("roleplay")["backend"] == "local" and config.get("AVATAR_LLM_IN_GROUP") != "1":
+accelerated = "roleplay" in configuration().get("inference", {})
+if (agent_config("roleplay")["backend"] == "local" or accelerated) and config.get("AVATAR_LLM_IN_GROUP") != "1":
     specs["llm"] = {
         "port": int(config.get("AVATAR_LLM_PORT", "18110")),
         "python": config["AVATAR_LLM_PYTHON"],
-        "script": config.get("AVATAR_LLM_SERVICE", "services/llm_service.py"),
+        "script": "services/local_inference_service.py" if accelerated else config.get("AVATAR_LLM_SERVICE", "services/llm_service.py"),
         "gpus": int(config.get("AVATAR_LLM_GPUS", "1")),
         "model": str(model_path("roleplay", check=True)),
     }
+    if accelerated:
+        from roleplay_avatar.inference import engine_config, fingerprint
+
+        spec = specs["llm"]
+        spec["extra"] = ["--config-sha256", fingerprint(
+            config=engine_config(overrides={"port": spec["port"]}), model=spec["model"]
+        )]
 if config.get("AVATAR_CONTROLLER_PYTHON") and "controller" not in group_services:
     specs["controller"] = {
         "port": int(config.get("AVATAR_CONTROLLER_PORT", "18111")),

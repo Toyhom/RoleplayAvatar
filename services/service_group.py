@@ -48,9 +48,16 @@ try:
         model = service.get("model") or str(model_path(service["model_role"], check=True))
         command = [os.path.expandvars(service["python"]), str(ROOT / service["script"]),
                    "--model", os.path.expandvars(model), "--port", str(service["port"]), *service.get("args", [])]
+        overrides = service.get("env", {})
+        if not isinstance(overrides, dict) or not all(isinstance(k, str) and isinstance(v, str)
+                                                     for k, v in overrides.items()):
+            raise ValueError("Service env must map environment variable names to strings")
+        if any(k == "CUDA_VISIBLE_DEVICES" or k.startswith("GPUQ_") for k in overrides):
+            raise ValueError("Service env must preserve the GPU allocation")
+        child_env = {**env, **{k: os.path.expandvars(v) for k, v in overrides.items()}}
         handle = (folder / (name + ".log")).open("a")
         handles.append(handle)
-        process = subprocess.Popen(command, cwd=ROOT, env=env, stdout=handle, stderr=subprocess.STDOUT)
+        process = subprocess.Popen(command, cwd=ROOT, env=child_env, stdout=handle, stderr=subprocess.STDOUT)
         processes.append((name, process))
         print("SERVICE_STARTED", name, process.pid, flush=True)
     while True:

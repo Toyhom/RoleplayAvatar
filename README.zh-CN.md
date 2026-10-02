@@ -10,9 +10,9 @@
 
 框架支持按模块选择本地模型或厂商 API，提供纯后端模式，适合日常体验、应用开发和角色扮演研究。
 
-[![观看 30 秒功能宣传片](media/promo/poster-zh-CN.jpg)](media/promo/roleplay-avatar-zh-CN.mp4)
+[![观看 30 秒功能介绍](media/promo/poster-zh-CN.jpg)](media/promo/roleplay-avatar-zh-CN.mp4)
 
-**30 秒功能宣传片：** [简体中文](media/promo/roleplay-avatar-zh-CN.mp4) · [English](media/promo/roleplay-avatar-en.mp4) · [日本語](media/promo/roleplay-avatar-ja.mp4)
+**30 秒功能介绍：** [简体中文](media/promo/roleplay-avatar-zh-CN.mp4) · [English](media/promo/roleplay-avatar-en.mp4) · [日本語](media/promo/roleplay-avatar-ja.mp4)
 
 | 你的目标 | 入口 |
 | --- | --- |
@@ -20,6 +20,7 @@
 | 让 Codex / Claude Code 帮忙安装 | [可复制的 AI 安装说明](guides/zh-CN/ai-setup.md) |
 | 根据显卡选模型、从国内镜像下载 | [模型与配置](guides/zh-CN/models.md) |
 | 完整本地部署 | [详细安装指南](guides/zh-CN/setup.md) |
+| 本地推理加速与显存优化 | [性能配置](guides/zh-CN/performance.md) |
 | 开发接口与模块 | [API](guides/zh-CN/api.md) · [系统架构](guides/zh-CN/architecture.md) |
 | 测试自己的角色扮演模型或提示词 | [研究指南](guides/zh-CN/research.md) |
 

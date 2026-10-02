@@ -2,11 +2,11 @@
 # Install into a new, explicitly chosen prefix. Never mutates an unrelated environment.
 set -euo pipefail
 if [[ $# != 3 ]]; then
-  echo 'Usage: bash scripts/install_model_env.sh vision|asset|qwen|cosyvoice|face|audio2face|portrait /absolute/python3.10 /absolute/new-prefix' >&2
+  echo 'Usage: bash scripts/install_model_env.sh vision|asset|qwen|cosyvoice|face|audio2face|portrait|vllm|sglang|faster-whisper /absolute/python /absolute/new-prefix' >&2
   exit 2
 fi
 kind="$1"; base_python="$2"; prefix="$3"
-case "$kind" in vision|asset|qwen|cosyvoice|face|audio2face|portrait) ;; *) exit 2 ;; esac
+case "$kind" in vision|asset|qwen|cosyvoice|face|audio2face|portrait|vllm|sglang|faster-whisper) ;; *) exit 2 ;; esac
 [[ "$prefix" == /* && "$base_python" == /* && -x "$base_python" ]] || exit 2
 project="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$project"
@@ -23,7 +23,12 @@ export PIP_CACHE_DIR="$project/.cache/pip"
 export TMPDIR="$project/.cache/tmp"
 mkdir -p "$TMPDIR"
 "$python" -m pip install 'pip==25.3' 'setuptools==79.0.1' wheel packaging ninja
-if [[ "$kind" == face ]]; then
+if [[ "$kind" == vllm || "$kind" == sglang || "$kind" == faster-whisper ]]; then
+  "$python" -m pip install -r "requirements/$kind.txt"
+  if [[ "$kind" == vllm ]]; then
+    "$python" -m pip install -e "$project"
+  fi
+elif [[ "$kind" == face ]]; then
   "$python" -m pip install -r requirements/face.txt
   "$python" -m pip install mediapipe==0.10.21 --no-deps
 elif [[ "$kind" == portrait ]]; then

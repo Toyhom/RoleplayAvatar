@@ -2,6 +2,8 @@
 
 [English](../providers.md) · [简体中文](providers.md) · [日本語](../ja/providers.md)
 
+vLLM、SGLang、llama.cpp 和各模块显存参数见[本地推理与性能配置](performance.md)。
+
 每个智能体可以单独选择供应商、模型、生成参数和提示词。一个通用模型可以服务全部智能体，也可以把角色模型与控制模型分开。
 
 ## 连接一个供应商

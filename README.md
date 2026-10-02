@@ -25,6 +25,7 @@ The framework connects replaceable models for roleplay, character design, speech
 | Choose models for your hardware | [Models, presets and downloads](guides/models.md) |
 | Connect DeepSeek, Qwen, OpenAI or Claude | [Providers and configuration](guides/providers.md) |
 | Deploy a complete local system | [Installation](guides/setup.md) |
+| Speed up local inference and reduce VRAM | [Performance](guides/performance.md) |
 | Build an application or integration | [API](guides/api.md) · [Architecture](guides/architecture.md) |
 | Test a roleplay checkpoint or prompting method | [Research guide](guides/research.md) |
 

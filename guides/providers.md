@@ -2,6 +2,8 @@
 
 [English](providers.md) · [简体中文](zh-CN/providers.md) · [日本語](ja/providers.md)
 
+Configure vLLM, SGLang, llama.cpp and module-specific memory settings in [Local inference and performance](performance.md).
+
 Each agent chooses its own provider, model, generation settings and prompt. A general model can serve all agents, or a specialized actor can work with a separate controller.
 
 ## Connect one provider

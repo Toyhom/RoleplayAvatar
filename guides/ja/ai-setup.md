@@ -2,6 +2,8 @@
 
 [English](../ai-setup.md) · [简体中文](../zh-CN/ai-setup.md) · [日本語](ai-setup.md)
 
+vLLM、SGLang、llama.cpp とモジュールごとのメモリ設定は[ローカル推論と性能設定](performance.md)を参照してください。
+
 AI コーディングツールでリポジトリを開き、次の文章をコピーします。保存先やモデルに希望がある場合は記入してください。
 
 ```text

@@ -2,6 +2,8 @@
 
 [English](../ai-setup.md) · [简体中文](ai-setup.md) · [日本語](../ja/ai-setup.md)
 
+vLLM、SGLang、llama.cpp 和各模块显存参数见[本地推理与性能配置](performance.md)。
+
 在 AI 编程工具中打开本仓库，复制下面这段文字。有偏好时填入目录和模型，其他项可由 AI 检查机器后推荐。
 
 ```text

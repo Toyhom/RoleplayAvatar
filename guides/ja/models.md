@@ -2,6 +2,8 @@
 
 [English](../models.md) · [简体中文](../zh-CN/models.md) · [日本語](models.md)
 
+vLLM、SGLang、llama.cpp とモジュールごとのメモリ設定は[ローカル推論と性能設定](performance.md)を参照してください。
+
 パスがチェックポイントを選び、アダプターが推論を実装し、エージェントがローカル・外部接続を選びます。[モデルカタログ](../../src/roleplay_avatar/data/models.json)にはリポジトリ ID、固定リビジョン、アダプター、ライセンス、概算 VRAM を記録しています。
 
 ## ハードウェア別プリセット

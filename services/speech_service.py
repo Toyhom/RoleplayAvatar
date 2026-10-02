@@ -37,13 +37,15 @@ from roleplay_avatar.voice_direction import synthesis_direction
 parser = argparse.ArgumentParser()
 parser.add_argument("--model", required=True)
 parser.add_argument("--port", type=int, default=18120)
+parser.add_argument("--fp16", action="store_true", help="Use the upstream half-precision inference path")
+parser.add_argument("--tensorrt", action="store_true", help="Load/build the upstream TensorRT flow engine")
 args = parser.parse_args()
 torch.manual_seed(42)
 # Match the upstream vocoder's inference example: deterministic convolution
 # avoids selecting very large temporary workspaces for some short utterances.
 torch.backends.cudnn.deterministic = True
 torch.backends.cudnn.benchmark = False
-model = CosyVoice3(args.model, fp16=False, load_trt=False, load_vllm=False)
+model = CosyVoice3(args.model, fp16=args.fp16, load_trt=args.tensorrt, load_vllm=False)
 assert model.sample_rate == 24000, "The internal contract requires 24 kHz; do not silently resample chunks."
 characters = {}
 
@@ -129,6 +131,8 @@ def health():
         "cancelled_requests": cancelled_requests,
         "failed_requests": failed_requests,
         "deterministic_cudnn": torch.backends.cudnn.deterministic,
+        "fp16": args.fp16,
+        "tensorrt": args.tensorrt,
     }
 
 

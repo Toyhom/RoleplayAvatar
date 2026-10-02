@@ -11,6 +11,7 @@
 
 - [インストール](setup.md)
 - [モデルとメモリ](models.md)
+- [ローカル推論と性能](performance.md)
 - [プロバイダーとプロンプト](providers.md)
 - [声の設計](voice.md)
 - [キャラクター資源](resources.md)

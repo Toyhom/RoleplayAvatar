@@ -20,7 +20,6 @@ sys.path[:0] = [
     str(ROOT / "third_party/cosyvoice"),
     str(ROOT / "third_party/cosyvoice/third_party/Matcha-TTS"),
 ]
-sys.modules["flash_attn"] = None
 sys.modules["xformers"] = None
 from math import gcd
 
@@ -32,13 +31,21 @@ from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 from scipy.signal import resample_poly
 
+from roleplay_avatar.voice_cache import VoicePromptCache
+
 parser = argparse.ArgumentParser()
 parser.add_argument("--model", required=True)
 parser.add_argument("--backend", choices=["cosyvoice-auto", "qwen-base", "qwen-custom"], required=True)
 parser.add_argument("--speaker", default="Vivian")
 parser.add_argument("--language", default="Auto")
 parser.add_argument("--port", type=int, default=18120)
+parser.add_argument("--voice-cache-size", type=int, default=8)
+parser.add_argument("--attention", choices=["sdpa", "flash_attention_2"], default="sdpa")
+parser.add_argument("--dtype", choices=["bfloat16", "float16", "float32"], default="bfloat16")
 args = parser.parse_args()
+voice_cache = VoicePromptCache(args.voice_cache_size)
+if args.attention == "sdpa":
+    sys.modules["flash_attn"] = None
 if args.backend == "cosyvoice-auto":
     from cosyvoice.cli.cosyvoice import AutoModel
 
@@ -47,7 +54,7 @@ else:
     from qwen_tts import Qwen3TTSModel
 
     model = Qwen3TTSModel.from_pretrained(
-        args.model, device_map="cuda:0", dtype=torch.bfloat16, attn_implementation="sdpa"
+        args.model, device_map="cuda:0", dtype=getattr(torch, args.dtype), attn_implementation=args.attention
     )
 lock = asyncio.Lock()
 app = FastAPI(title="Roleplay speech family adapter")
@@ -81,8 +88,11 @@ def synthesize(payload):
     else:
         audio, transcript = reference(payload.character_id)
         if args.backend == "qwen-base":
+            prompt = voice_cache.get(audio, transcript, lambda: model.create_voice_clone_prompt(
+                ref_audio=audio, ref_text=transcript
+            ))
             waves, sr = model.generate_voice_clone(
-                text=payload.text, language=args.language, ref_audio=audio, ref_text=transcript
+                text=payload.text, language=args.language, voice_clone_prompt=prompt
             )
             wave = waves[0]
         else:
@@ -110,6 +120,9 @@ def health():
         "model_path": args.model,
         "streaming": "sentence-buffered",
         "sample_rate": 24000,
+        "voice_cache": voice_cache.stats(),
+        "attention": args.attention if args.backend.startswith("qwen") else "native",
+        "dtype": args.dtype if args.backend.startswith("qwen") else "native",
     }
 
 

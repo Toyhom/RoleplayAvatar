@@ -84,4 +84,13 @@ def inspect():
                 },
             }
         )
+    for role in config.get("inference", {}):
+        from .inference import launch_plan
+
+        try:
+            plan = launch_plan(role, check=True)
+            checks.append({"name": "inference:" + role, "ok": True,
+                           "value": {"engine": plan["engine"], "health_url": plan["health_url"]}})
+        except (ValueError, OSError) as error:
+            checks.append({"name": "inference:" + role, "ok": False, "value": str(error)})
     return {"checks": checks, "ready": all(c["ok"] for c in checks)}
