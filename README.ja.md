@@ -10,9 +10,9 @@
 
 各モジュールのローカルモデルと外部 API を個別に設定できます。バックエンド API は、アプリ開発とロールプレイ研究にも利用できます。
 
-[![30 秒の機能紹介を見る](media/promo/poster-ja.jpg)](media/promo/roleplay-avatar-ja.mp4)
+https://github.com/user-attachments/assets/47e32f4e-94e6-4a0f-978d-8a36a8303a89
 
-**30 秒の機能紹介：** [日本語](media/promo/roleplay-avatar-ja.mp4) · [English](media/promo/roleplay-avatar-en.mp4) · [简体中文](media/promo/roleplay-avatar-zh-CN.mp4)
+**30 秒の機能紹介：** [日本語](https://github.com/user-attachments/assets/47e32f4e-94e6-4a0f-978d-8a36a8303a89) · [English](https://github.com/user-attachments/assets/be8b3b59-ce28-4387-8f2b-dceb23f7b65c) · [简体中文](https://github.com/user-attachments/assets/556ac18a-fe2e-4d63-8d5b-b694ded76a69)
 
 | 目的 | ガイド |
 | --- | --- |

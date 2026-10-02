@@ -10,9 +10,9 @@ Roleplay Avatar turns an image and a short description into a speaking 2D charac
 
 The framework connects replaceable models for roleplay, character design, speech and animation. Run them locally, use model-provider APIs, or combine both. A headless API exposes the same creation and conversation workflows for applications and research.
 
-[![Watch the 30-second feature tour](media/promo/poster-en.jpg)](media/promo/roleplay-avatar-en.mp4)
+https://github.com/user-attachments/assets/be8b3b59-ce28-4387-8f2b-dceb23f7b65c
 
-**30-second tour:** [English](media/promo/roleplay-avatar-en.mp4) · [简体中文](media/promo/roleplay-avatar-zh-CN.mp4) · [日本語](media/promo/roleplay-avatar-ja.mp4)
+**30-second tour:** [English](https://github.com/user-attachments/assets/be8b3b59-ce28-4387-8f2b-dceb23f7b65c) · [简体中文](https://github.com/user-attachments/assets/556ac18a-fe2e-4d63-8d5b-b694ded76a69) · [日本語](https://github.com/user-attachments/assets/47e32f4e-94e6-4a0f-978d-8a36a8303a89)
 
 [All guides](guides/index.md)
 

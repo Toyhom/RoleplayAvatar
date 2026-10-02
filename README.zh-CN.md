@@ -10,9 +10,9 @@
 
 框架支持按模块选择本地模型或厂商 API，提供纯后端模式，适合日常体验、应用开发和角色扮演研究。
 
-[![观看 30 秒功能介绍](media/promo/poster-zh-CN.jpg)](media/promo/roleplay-avatar-zh-CN.mp4)
+https://github.com/user-attachments/assets/556ac18a-fe2e-4d63-8d5b-b694ded76a69
 
-**30 秒功能介绍：** [简体中文](media/promo/roleplay-avatar-zh-CN.mp4) · [English](media/promo/roleplay-avatar-en.mp4) · [日本語](media/promo/roleplay-avatar-ja.mp4)
+**30 秒功能介绍：** [简体中文](https://github.com/user-attachments/assets/556ac18a-fe2e-4d63-8d5b-b694ded76a69) · [English](https://github.com/user-attachments/assets/be8b3b59-ce28-4387-8f2b-dceb23f7b65c) · [日本語](https://github.com/user-attachments/assets/47e32f4e-94e6-4a0f-978d-8a36a8303a89)
 
 | 你的目标 | 入口 |
 | --- | --- |
