@@ -6,6 +6,7 @@ import os
 import shlex
 import shutil
 import sys
+from pathlib import Path
 from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
@@ -143,7 +144,13 @@ def launch_plan(role="roleplay", *, config=None, model=None, check=False):
 
 def start(role="roleplay", *, config=None, model=None):
     command = launch_plan(role, config=config, model=model, check=True)["command"]
-    os.execvpe(command[0], command, dict(os.environ))
+    env = dict(os.environ)
+    # Absolute Python paths select a virtualenv without shell activation. Native
+    # extensions also need that environment's executables, including ninja.
+    executable = shutil.which(command[0])
+    directory = str(Path(executable).absolute().parent)
+    env["PATH"] = directory + os.pathsep + env.get("PATH", os.defpath)
+    os.execvpe(command[0], command, env)
 
 
 def fingerprint(role="roleplay", *, config=None, model=None):

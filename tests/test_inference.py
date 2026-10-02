@@ -50,6 +50,7 @@ def test_launch_preserves_allocation_and_passes_paths_without_shell(tmp_path, mo
     start(config=cfg, model=str(model))
     _, argv, env = called[0]
     assert env["CUDA_VISIBLE_DEVICES"] == "GPU-one,GPU-two"
+    assert env["PATH"].split(os.pathsep)[0] == str(Path(sys.executable).absolute().parent)
     assert str(model) in argv
     assert argv[argv.index("--quantization") + 1] == "awq"
     assert "--no-enable-prefix-caching" in argv
