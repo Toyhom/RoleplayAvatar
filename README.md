@@ -20,7 +20,7 @@ https://github.com/user-attachments/assets/be8b3b59-ce28-4387-8f2b-dceb23f7b65c
 
 | What you want to do | Guide |
 | --- | --- |
-| Try the interface on your computer | [Quick start](guides/quickstart.md) |
+| Set up models and start chatting | [Quick start](guides/quickstart.md) |
 | Ask Codex or Claude Code to set it up | [Copyable AI setup instructions](guides/ai-setup.md) |
 | Choose models for your hardware | [Models, presets and downloads](guides/models.md) |
 | Connect DeepSeek, Qwen, OpenAI or Claude | [Providers and configuration](guides/providers.md) |
@@ -28,20 +28,6 @@ https://github.com/user-attachments/assets/be8b3b59-ce28-4387-8f2b-dceb23f7b65c
 | Speed up local inference and reduce VRAM | [Performance](guides/performance.md) |
 | Build an application or integration | [API](guides/api.md) · [Architecture](guides/architecture.md) |
 | Test a roleplay checkpoint or prompting method | [Research guide](guides/research.md) |
-
-## A CPU preview in five commands
-
-Requires Python 3.11 and Node.js 18+.
-
-```bash
-python3.11 -m venv .venv
-.venv/bin/python -m pip install -e '.[dev,download]'
-npm ci
-npm run build
-AVATAR_MODE=replay .venv/bin/python -m uvicorn roleplay_avatar.app:create_app --factory --port 18080
-```
-
-Open **http://localhost:18080**. Replay provides fixed dialogue and diagnostic audio for exploring the interface and protocol. Follow the [live setup](guides/setup.md) to enable model-generated conversations, speech and character creation.
 
 ## Create and talk
 

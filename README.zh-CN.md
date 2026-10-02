@@ -16,7 +16,7 @@ https://github.com/user-attachments/assets/556ac18a-fe2e-4d63-8d5b-b694ded76a69
 
 | 你的目标 | 入口 |
 | --- | --- |
-| 快速体验界面 | [快速开始](guides/zh-CN/quickstart.md) |
+| 配置模型并开始交谈 | [快速开始](guides/zh-CN/quickstart.md) |
 | 让 Codex / Claude Code 帮忙安装 | [可复制的 AI 安装说明](guides/zh-CN/ai-setup.md) |
 | 根据显卡选模型、从国内镜像下载 | [模型与配置](guides/zh-CN/models.md) |
 | 完整本地部署 | [详细安装指南](guides/zh-CN/setup.md) |
@@ -25,20 +25,6 @@ https://github.com/user-attachments/assets/556ac18a-fe2e-4d63-8d5b-b694ded76a69
 | 测试自己的角色扮演模型或提示词 | [研究指南](guides/zh-CN/research.md) |
 
 [全部指南](guides/zh-CN/index.md)
-
-## 五条命令预览
-
-需要 Python 3.11 和 Node.js 18+。
-
-```bash
-python3.11 -m venv .venv
-.venv/bin/python -m pip install -e '.[dev,download]'
-npm ci
-npm run build
-AVATAR_MODE=replay .venv/bin/python -m uvicorn roleplay_avatar.app:create_app --factory --port 18080
-```
-
-打开 **http://localhost:18080**。预览模式使用固定台词和诊断音，方便了解界面与协议。真实对话、语音和角色创建的安装流程见[快速开始](guides/zh-CN/quickstart.md)。
 
 ## 创建和交谈
 

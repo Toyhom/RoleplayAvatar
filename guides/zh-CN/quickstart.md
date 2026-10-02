@@ -2,7 +2,7 @@
 
 [English](../quickstart.md) · [简体中文](quickstart.md) · [日本語](../ja/quickstart.md)
 
-先选择你的使用方式：CPU 预览可以直接了解界面；真实交谈需要角色模型与语音服务；图片创建还需要图像和声线设计模型。想让 AI 执行安装，可以复制[这份说明](ai-setup.md)。
+选择本地模型或厂商 API 开始角色交谈，语音交互需要配置语音服务；从图片创建角色还需要图像和声线设计模型。想让 AI 执行安装，可以复制[这份说明](ai-setup.md)。
 
 ## 1. 安装界面
 
@@ -13,12 +13,9 @@ python3.11 -m venv .venv
 .venv/bin/python -m pip install -e '.[dev,download]'
 npm ci
 npm run build
-AVATAR_MODE=replay .venv/bin/python -m uvicorn roleplay_avatar.app:create_app --factory --port 18080
 ```
 
-打开 http://localhost:18080，选择角色发送消息。此时使用固定台词与诊断音。切换真实模型前按 Ctrl+C 停止服务。
-
-## 2. 配置真实模型
+## 2. 配置模型并启动服务
 
 查看硬件建议，`--vram-gib` 是单张显卡的显存：
 
@@ -31,7 +28,7 @@ AVATAR_MODE=replay .venv/bin/python -m uvicorn roleplay_avatar.app:create_app --
 
 本地对话可按[性能指南](performance.md)选择加速引擎并设置显存预算。
 
-随后按[详细安装指南](setup.md)安装独立的模型环境，启动服务并设置 `AVATAR_*_URL`，再执行 `bash scripts/serve.sh`。该指南也包含原生 Live2D 示例安装和纯后端模式。
+随后按[详细安装指南](setup.md)安装独立的模型环境，启动服务并设置 `AVATAR_*_URL`，再执行 `bash scripts/serve.sh`，打开 **http://localhost:18080**。该指南也包含原生 Live2D 示例安装和纯后端模式。
 
 ## 3. 创建角色并交谈
 

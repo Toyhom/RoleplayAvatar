@@ -2,9 +2,9 @@
 
 [English](../quickstart.md) · [简体中文](../zh-CN/quickstart.md) · [日本語](quickstart.md)
 
-CPU プレビューでは画面と通信を確認できます。実際の会話には言語モデルと音声サービス、画像からの作成には画像処理と音声設計モデルを追加します。AI に作業を依頼する場合は[セットアップ手順](ai-setup.md)をコピーしてください。
+ローカルモデルまたは外部 API を選んで会話を始めます。音声での対話には音声サービス、画像からのキャラクター作成には画像処理と音声設計モデルを設定します。AI に作業を依頼する場合は[セットアップ手順](ai-setup.md)をコピーしてください。
 
-## 1. 画面を起動する
+## 1. アプリをインストールする
 
 Python 3.11 と Node.js 18+ を用意し、リポジトリのルートで実行します。
 
@@ -13,12 +13,9 @@ python3.11 -m venv .venv
 .venv/bin/python -m pip install -e '.[dev,download]'
 npm ci
 npm run build
-AVATAR_MODE=replay .venv/bin/python -m uvicorn roleplay_avatar.app:create_app --factory --port 18080
 ```
 
-http://localhost:18080 を開き、キャラクターを選んで送信します。このモードは固定の会話と診断用音声を使用します。実モデルへ切り替える前に Ctrl+C で停止します。
-
-## 2. モデルを選ぶ
+## 2. モデルを設定してサービスを起動する
 
 `--vram-gib` には GPU 1 枚あたりのメモリを指定します。
 
@@ -31,7 +28,7 @@ http://localhost:18080 を開き、キャラクターを選んで送信します
 
 ローカル会話の推論エンジンとメモリ予算は[性能ガイド](performance.md)で設定します。
 
-[モデルと設定](models.md)で API 接続やプリセットを選び、[詳細なインストール手順](setup.md)でモデル環境とサービスを準備します。`AVATAR_*_URL` を設定し、`bash scripts/serve.sh` でアプリを起動します。
+[モデルと設定](models.md)で API 接続やプリセットを選び、[詳細なインストール手順](setup.md)でモデル環境とサービスを準備します。`AVATAR_*_URL` を設定し、`bash scripts/serve.sh` でアプリを起動し、**http://localhost:18080** を開きます。
 
 ## 3. キャラクターと会話する
 

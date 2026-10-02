@@ -16,7 +16,7 @@ https://github.com/user-attachments/assets/47e32f4e-94e6-4a0f-978d-8a36a8303a89
 
 | 目的 | ガイド |
 | --- | --- |
-| 画面を試す | [クイックスタート](guides/ja/quickstart.md) |
+| モデルを設定して会話を始める | [クイックスタート](guides/ja/quickstart.md) |
 | Codex / Claude Code にセットアップを依頼する | [コピー用の手順](guides/ja/ai-setup.md) |
 | GPU に合わせてモデルを選ぶ | [モデルと設定](guides/ja/models.md) |
 | ローカル環境を構築する | [詳細なインストール手順](guides/ja/setup.md) |
@@ -25,20 +25,6 @@ https://github.com/user-attachments/assets/47e32f4e-94e6-4a0f-978d-8a36a8303a89
 | 独自モデルやプロンプトを評価する | [研究ガイド](guides/ja/research.md) |
 
 [ガイド一覧](guides/ja/index.md)
-
-## 5 コマンドでプレビュー
-
-Python 3.11 と Node.js 18+ が必要です。
-
-```bash
-python3.11 -m venv .venv
-.venv/bin/python -m pip install -e '.[dev,download]'
-npm ci
-npm run build
-AVATAR_MODE=replay .venv/bin/python -m uvicorn roleplay_avatar.app:create_app --factory --port 18080
-```
-
-**http://localhost:18080** を開きます。プレビューでは固定の会話と診断用の音声を使います。モデルによる会話、音声、キャラクター作成は[クイックスタート](guides/ja/quickstart.md)から設定できます。
 
 ## 作成と会話
 

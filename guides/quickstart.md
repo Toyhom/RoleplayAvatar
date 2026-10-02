@@ -6,25 +6,21 @@ Choose an entry point based on your goal.
 
 | Route | Hardware | Result |
 | --- | --- | --- |
-| CPU preview | Python 3.11, Node.js 18+ | Interface, conversations and protocol replay |
 | Hosted models | API access; a speech service for audio | Live roleplay with your provider |
 | Local models | NVIDIA GPU; see the presets | Local chat, speech, microphone input and creation |
 
 ## 1. Install the web application
 
-Run these commands from the repository directory:
+Requires Python 3.11 and Node.js 18+. Run these commands from the repository directory:
 
 ```bash
 python3.11 -m venv .venv
 .venv/bin/python -m pip install -e '.[dev,download]'
 npm ci
 npm run build
-AVATAR_MODE=replay .venv/bin/python -m uvicorn roleplay_avatar.app:create_app --factory --port 18080
 ```
 
-Visit http://localhost:18080. Select a built-in illustrated character and send a message. This route uses fixed text and a diagnostic tone. Stop the server with Ctrl+C before changing to live mode.
-
-## 2. Choose your live configuration
+## 2. Configure models and start services
 
 For hosted dialogue, select a provider in [Providers](providers.md). Real-time audio uses the [speech service](setup.md); model APIs and the speech service may run on separate machines.
 
@@ -39,7 +35,7 @@ Remove `--dry-run` to download. The `--mirror` option uses **https://hf-mirror.c
 
 For local dialogue, choose an accelerated engine and memory budget in [Performance](performance.md).
 
-Continue with [Installation](setup.md), which covers model environments, resource installation and service startup. You can also copy [these instructions](ai-setup.md) into Codex or Claude Code to have it perform the setup.
+Continue with [Installation](setup.md) to configure model environments, install character resources, and start the model services and web application. Then open **http://localhost:18080**. You can also copy [these instructions](ai-setup.md) into Codex or Claude Code to have it perform the setup.
 
 ## 3. Use the studio
 
