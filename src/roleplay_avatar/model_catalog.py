@@ -192,6 +192,10 @@ def preset_config(preset, root, creation=False, *, engine=None, inference_python
                 entry["template_kwargs"] = {"enable_thinking": False}
             if inference_python:
                 entry["python"] = inference_python
+            if engine == "vllm":
+                entry["extra_args"] = ["--compilation-config", '{"mode":0,"cudagraph_mode":"FULL_DECODE_ONLY"}']
+                if entry["tensor_parallel"] > 1:
+                    entry["extra_args"].append("--disable-custom-all-reduce")
             config["inference"][role] = entry
             provider = launch_plan(role, config=EngineConfig(**entry), model=config["models"][role]["path"])["agent"]
             key = "roleplay" if preset == "showcase" and role == "roleplay" else "default"

@@ -15,13 +15,16 @@ AI コーディングツールでリポジトリを開き、次の文章をコ�
 ダウンロード元：[Hugging Face / https://hf-mirror.com / その他]
 希望する言語：日本語。
 
-README.md、guides/setup.md、guides/models.md と適用されるワークスペースの
+README.md、guides/setup.md、guides/models.md、guides/performance.md と適用されるワークスペースの
 指示を読み、Python、Node、利用可能な GPU、空き容量、既存モデルを確認してください。
 完全な互換モデルがある場合は再利用し、管理された GPU キューがある環境では
 そのアカウントとキューの手順を使用してください。
 
 1. 会話用・作成用モデル、必要メモリ、同時に動かすサービスを説明する。
    API の場合はモデル ID、地域別 URL、キーの環境変数を確認する。
+   ローカル会話ではハードウェアに合わせて vLLM、SGLang、llama.cpp を選び、
+   コンテキスト、同時実行数、メモリ予算を設定する。同じ重みを使うエージェントは
+   推論エンドポイントを共有する。
 2. 指定先に専用環境を作り、Web アプリをインストール、フロントエンドを
    ビルドし、CPU テストを実行する。モデル依存はサービス別環境に入れる。
 3. avatar models recommend/list/download/configure を使い、計画を確認して
@@ -31,7 +34,7 @@ README.md、guides/setup.md、guides/models.md と適用されるワークスペ
    モデルと URL を設定する。キー本体は環境変数で管理する。
    自由形式の役モデルは actor_director とし、制御タスクには汎用指示モデルを使う。
    プロンプトと音声設計文を日本語向けに設定し、ASR は auto または ja とする。
-5. GPU ランナーで推論サービスを起動してから Web を起動し、/healthz と
+5. GPU ランナーで推論サービスを起動してから Web を起動し、各サービスのヘルスエンドポイントと
    /api/services を確認する。Live2D サンプルを選んだ場合はリソースと
    参照音声を準備してインポートする。
 6. 実際の返答、音声、表情・動作、中断、新しい会話、JSON 書き出しを検証する。

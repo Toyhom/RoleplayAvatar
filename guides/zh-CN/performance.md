@@ -43,7 +43,9 @@ export AVATAR_MODELS_CONFIG="$PWD/configs/models.local.json"
 
 安装器使用 `requirements/vllm.txt` 的固定版本，并在新环境中记录已安装包。推理环境拥有独立的 Torch 依赖，CPU 应用继续使用 `.venv`。选择 SGLang 时，将安装器类型与 `--engine` 都改为 `sglang`。
 
-vLLM 安装器同时注册框架的设备插件；使用 vLLM 0.21 时，它通过 NVML 解析已分配的 GPU UUID，并保持 `CUDA_VISIBLE_DEVICES` 不变。
+自动生成的 vLLM 预设使用原生算子与解码 CUDA graph，缩短冷启动时间。删除 `extra_args` 中的 `--compilation-config` 覆盖项，即可使用 vLLM 默认的 Torch 编译。多卡预设使用 NCCL 通信。
+
+vLLM 安装器同时注册框架的设备插件；使用 vLLM 0.21 时，它通过 NVML 解析已分配的 GPU UUID，并保持 `CUDA_VISIBLE_DEVICES` 不变。 多卡使用 UUID 分配时，在 `extra_args` 中加入 `"--disable-custom-all-reduce"`，使用 NCCL 通信。
 
 ## 显存与并发
 
@@ -75,6 +77,10 @@ vLLM 安装器同时注册框架的设备插件；使用 vLLM 0.21 时，它通�
 | 70B | 140 | 70 | 35 |
 
 量化还需要缩放因子和元数据。KV 缓存随上下文与并发数增长。较大的预分配缓存会让高吞吐引擎比单请求 Transformers 服务占用更多显存；与语音共卡时，应降低其预算。角色创建适合单独分配 GPU 或错峰运行。
+
+vLLM 可通过 `extra_args: ["--compilation-config", "{\"mode\":0}"]` 使用原生算子，并关闭 Torch 编译和 CUDA graph。需要保留解码阶段的 CUDA graph 时，将配置改为 `{"mode":0,"cudagraph_mode":"FULL_DECODE_ONLY"}`。权重放在网络文件系统时，可追加 `["--safetensors-load-strategy", "eager"]`，启动时顺序读取每个分片；这会增加临时主机内存占用。
+
+对于兼容的 BF16/FP16 权重，vLLM 可通过 `quantization="fp8"` 在加载时量化。设置 `kv_cache_dtype="fp8"` 可压缩缓存，在 `extra_args` 中追加 `"--calculate-kv-scales"` 可计算缓存缩放因子。选择支持 vLLM FP8 算子的 GPU，再降低显存预算，实测输出质量和可用容量。
 
 ## GGUF 与小显存机器
 
@@ -123,7 +129,7 @@ ct2-transformers-converter --model /srv/models/whisper \
   --output outputs/benchmarks/vllm-c4.json
 ```
 
-内置 Transformers 服务使用 `--backend local --url http://127.0.0.1:18110`。结果记录预热后的首段文字延迟、总延迟、失败数、输出字符数及服务端报告的 token 吞吐。通过 `--prompt` 和并发参数模拟实际负载。量化和计算精度会影响输出质量，调速时也应验证打断和语音可懂度。
+内置 Transformers 服务使用 `--backend local --url http://127.0.0.1:18110`。`--warmups` 设置按目标并发数执行的预热批次数，预热请求不计入结果。结果记录预热后的首段文字延迟、总延迟、失败数、输出字符数及服务端报告的 token 吞吐。通过 `--prompt` 和并发参数模拟实际负载。量化和计算精度会影响输出质量，调速时也应验证打断和语音可懂度。
 
 服务组中的每个服务都可以通过 `env` 对象配置运行库路径；子进程保持调度器分配的 CUDA 设备。
 

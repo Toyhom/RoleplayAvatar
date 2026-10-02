@@ -43,7 +43,9 @@ export AVATAR_MODELS_CONFIG="$PWD/configs/models.local.json"
 
 インストーラーは `requirements/vllm.txt` の固定バージョンを使い、新しい環境にインストール済みパッケージを記録します。推論環境は独立した Torch 依存関係を持ち、CPU アプリは `.venv` を使います。SGLang ではインストーラーの種類と `--engine` を `sglang` に変更します。
 
-vLLM インストーラーはフレームワークのデバイスプラグインも登録します。vLLM 0.21 では、割り当て GPU UUID を NVML で解決し、`CUDA_VISIBLE_DEVICES` を維持します。
+生成される vLLM プリセットはネイティブカーネルとデコード用 CUDA graph を使用し、コールドスタートを短縮します。vLLM 標準の Torch コンパイルを使う場合は、`extra_args` の `--compilation-config` 指定を削除します。複数 GPU のプリセットは NCCL 通信を使います。
+
+vLLM インストーラーはフレームワークのデバイスプラグインも登録します。vLLM 0.21 では、割り当て GPU UUID を NVML で解決し、`CUDA_VISIBLE_DEVICES` を維持します。 UUID で複数 GPU が割り当てられる場合は、`extra_args` に `"--disable-custom-all-reduce"` を追加して NCCL 通信を使用します。
 
 ## メモリと同時実行数
 
@@ -75,6 +77,10 @@ VRAM は重み、KV キャッシュ、CUDA graph、中間テンソル、他の�
 | 70B | 140 | 70 | 35 |
 
 量子化にはスケールとメタデータも必要です。KV キャッシュはコンテキスト長と同時実行数に比例して増えます。大きな事前割り当てキャッシュは、単一リクエストの Transformers より多くの VRAM を使う場合があります。音声と GPU を共有するときは予算を下げ、キャラクター生成は別の割り当てか別の時間帯で実行します。
+
+vLLM の `extra_args: ["--compilation-config", "{\"mode\":0}"]` は Torch コンパイルと CUDA graph を無効にして、ネイティブカーネルを使用します。デコード時の CUDA graph を有効にする場合は、`{"mode":0,"cudagraph_mode":"FULL_DECODE_ONLY"}` を指定します。ネットワークストレージでは `["--safetensors-load-strategy", "eager"]` を追加すると起動時に各シャードを順次読み込みます。一時的なホストメモリ使用量は増えます。
+
+対応する BF16/FP16 チェックポイントは、vLLM の `quantization="fp8"` で読み込み時に量子化できます。キャッシュは `kv_cache_dtype="fp8"` で圧縮し、`extra_args` に `"--calculate-kv-scales"` を追加してスケールを計算します。vLLM の FP8 カーネルに対応した GPU を選び、メモリ予算を下げて出力品質と容量を測定します。
 
 ## GGUF と小容量 GPU
 
@@ -123,7 +129,7 @@ ct2-transformers-converter --model /srv/models/whisper \
   --output outputs/benchmarks/vllm-c4.json
 ```
 
-付属の Transformers サービスは `--backend local --url http://127.0.0.1:18110` で測定します。結果にはウォームアップ後の最初の文字列までの遅延、全体の遅延、失敗数、出力文字数、サーバーが報告した token スループットが含まれます。`--prompt` と同時実行数を実際の負荷に合わせます。量子化や精度は品質にも影響するため、割り込みと音声の明瞭さも確認してください。
+付属の Transformers サービスは `--backend local --url http://127.0.0.1:18110` で測定します。`--warmups` は指定した同時実行数でのウォームアップバッチ数です。このリクエストは測定結果に含めません。結果にはウォームアップ後の最初の文字列までの遅延、全体の遅延、失敗数、出力文字数、サーバーが報告した token スループットが含まれます。`--prompt` と同時実行数を実際の負荷に合わせます。量子化や精度は品質にも影響するため、割り込みと音声の明瞭さも確認してください。
 
 サービスグループの各サービスは `env` オブジェクトでライブラリパスを設定できます。各子プロセスは割り当て済み CUDA デバイスを維持します。
 

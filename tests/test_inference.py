@@ -32,6 +32,9 @@ def test_accelerated_preset_routes_each_agent_to_its_engine(engine, tmp_path, mo
     assert agent_config("roleplay")["output_mode"] == "actor_director"
     assert agent_config("initiative")["extra_body"] == {"chat_template_kwargs": {"enable_thinking": False}}
     assert engine_config("roleplay").tensor_parallel == 2
+    if engine == "vllm":
+        assert "--disable-custom-all-reduce" in launch_plan("roleplay")["command"]
+        assert "--disable-custom-all-reduce" not in launch_plan("controller")["command"]
 
 
 def test_launch_preserves_allocation_and_passes_paths_without_shell(tmp_path, monkeypatch):
@@ -147,6 +150,28 @@ def test_benchmark_uses_server_token_usage_and_rejects_empty_stream():
                 await measure(client, "http://test/v1/chat/completions", {}, "openai")
 
     asyncio.run(run())
+
+
+def test_benchmark_warms_requested_batch_size_and_excludes_warmups(monkeypatch):
+    from scripts import benchmark_inference as module
+
+    active = peak = calls = 0
+
+    async def measure(*args):
+        nonlocal active, peak, calls
+        active += 1
+        calls += 1
+        peak = max(peak, active)
+        await asyncio.sleep(0.001)
+        active -= 1
+        return {"ttft_s": 0.01, "elapsed_s": 0.1, "characters": 5,
+                "usage": {"completion_tokens": 1}}
+
+    monkeypatch.setattr(module, "measure", measure)
+    result = asyncio.run(module.benchmark("http://unused", "test", requests=4, concurrency=4, warmups=2))
+    assert peak == 4 and calls == 12
+    assert result["warmup_concurrency"] == 4
+    assert result["completed"] == 4 and len(result["results"]) == 4
 
 
 def test_image_memory_controls_support_different_vae_capabilities():

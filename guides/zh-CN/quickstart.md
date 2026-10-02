@@ -29,6 +29,8 @@ AVATAR_MODE=replay .venv/bin/python -m uvicorn roleplay_avatar.app:create_app --
 
 去掉 `--dry-run` 开始下载。`--mirror` 使用 https://hf-mirror.com，下载可断点续传并校验权重。添加 `--creation` 可下载图片创建所需模型。配置厂商 API、选择不同档位和创建配置文件的步骤见[模型与配置](models.md)。
 
+本地对话可按[性能指南](performance.md)选择加速引擎并设置显存预算。
+
 随后按[详细安装指南](setup.md)安装独立的模型环境，启动服务并设置 `AVATAR_*_URL`，再执行 `bash scripts/serve.sh`。该指南也包含原生 Live2D 示例安装和纯后端模式。
 
 ## 3. 创建角色并交谈

@@ -8,6 +8,9 @@ fi
 kind="$1"; base_python="$2"; prefix="$3"
 case "$kind" in vision|asset|qwen|cosyvoice|face|audio2face|portrait|vllm|sglang|faster-whisper) ;; *) exit 2 ;; esac
 [[ "$prefix" == /* && "$base_python" == /* && -x "$base_python" ]] || exit 2
+if [[ "$kind" == vllm ]]; then
+  "$base_python" -c 'import sys; sys.exit(0 if sys.version_info[:2] == (3, 11) else "Use Python 3.11 for the vLLM framework adapter")'
+fi
 project="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$project"
 if [[ -e "$prefix" ]]; then

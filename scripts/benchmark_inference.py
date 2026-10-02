@@ -72,7 +72,8 @@ async def benchmark(url, model, *, backend="openai", requests=8, concurrency=1, 
                                  limits=httpx.Limits(max_connections=concurrency + 1)) as client:
         endpoint = url.rstrip("/") + route
         for _ in range(warmups):
-            await measure(client, endpoint, payload, backend)
+            await asyncio.gather(*(measure(client, endpoint, payload, backend)
+                                   for _ in range(min(concurrency, requests))))
         semaphore = asyncio.Semaphore(concurrency)
 
         async def run():
@@ -88,7 +89,8 @@ async def benchmark(url, model, *, backend="openai", requests=8, concurrency=1, 
     success = [r for r in results if "error" not in r]
     tokens = [r["usage"].get("completion_tokens") for r in success]
     summary = {"backend": backend, "model": model, "requests": requests, "concurrency": concurrency,
-               "max_tokens": max_tokens, "warmups": warmups, "prompt": prompt,
+               "max_tokens": max_tokens, "warmups": warmups,
+               "warmup_concurrency": min(concurrency, requests), "prompt": prompt,
                "template_kwargs": template_kwargs or {}, "completed": len(success), "failed": requests - len(success),
                "wall_s": elapsed, "ttft_p50_s": percentile([r["ttft_s"] for r in success], 0.5),
                "ttft_p95_s": percentile([r["ttft_s"] for r in success], 0.95),

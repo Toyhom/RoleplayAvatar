@@ -43,7 +43,9 @@ On a shared GPUQ server, submit the command under your account using `gpuq submi
 
 The installer pins vLLM in `requirements/vllm.txt` and records installed packages in the new environment. Inference environments have their own Torch dependencies. The CPU application remains in `.venv`. For SGLang, replace the installer kind and `--engine` with `sglang`.
 
-The vLLM installer also registers the framework’s device plugin. With vLLM 0.21, it resolves allocated GPU UUIDs through NVML while preserving `CUDA_VISIBLE_DEVICES`.
+Generated vLLM presets use native kernels and decode CUDA graphs to keep cold starts short. Remove the `--compilation-config` override from `extra_args` to use vLLM’s default Torch compilation. Multi-GPU presets use NCCL communication.
+
+The vLLM installer also registers the framework’s device plugin. With vLLM 0.21, it resolves allocated GPU UUIDs through NVML while preserving `CUDA_VISIBLE_DEVICES`. For multi-GPU allocations using UUIDs, add `"--disable-custom-all-reduce"` to `extra_args` to select NCCL communication.
 
 ## Configure memory and concurrency
 
@@ -75,6 +77,10 @@ GPU memory includes weights, KV cache, CUDA graphs, activations and other servic
 | 70B | 140 | 70 | 35 |
 
 Quantization adds scales and metadata. KV cache grows with context and concurrent requests. A high preallocated cache can make a fast engine occupy more VRAM than a single-request Transformers service; lower its budget to share a GPU with speech. Run character creation in a separate allocation or at a different time.
+
+For vLLM, `extra_args: ["--compilation-config", "{\"mode\":0}"]` uses native kernels with Torch compilation and CUDA graphs disabled. To retain decode graphs, use `{"mode":0,"cudagraph_mode":"FULL_DECODE_ONLY"}` instead. On network storage, add `["--safetensors-load-strategy", "eager"]` to read each checkpoint shard sequentially at startup; this increases temporary host memory use.
+
+For compatible BF16/FP16 checkpoints, vLLM can quantize weights while loading with `quantization="fp8"`. Set `kv_cache_dtype="fp8"` for the cache and append `"--calculate-kv-scales"` to `extra_args` to calculate its scales. Select a GPU supported by vLLM’s FP8 kernels, then lower the memory budget and measure the resulting output quality and capacity.
 
 ## GGUF and smaller machines
 
@@ -123,7 +129,7 @@ Run the same prompt, model, context and output limit when comparing engines:
   --output outputs/benchmarks/vllm-c4.json
 ```
 
-Use `--backend local --url http://127.0.0.1:18110` for the bundled Transformers service. The benchmark records warm first-text latency, total latency, failures, output characters and server-reported token throughput. Change `--prompt` and concurrency to match your workload. Test cancellation and voice intelligibility alongside speed; quantization and dtype changes can affect output quality.
+Use `--backend local --url http://127.0.0.1:18110` for the bundled Transformers service. `--warmups` sets the number of warmup batches at the requested concurrency; these batches are excluded from measurements. The benchmark records warm first-text latency, total latency, failures, output characters and server-reported token throughput. Change `--prompt` and concurrency to match your workload. Test cancellation and voice intelligibility alongside speed; quantization and dtype changes can affect output quality.
 
 Service groups accept a per-service `env` object for runtime library paths. The group preserves the CUDA allocation for every child.
 

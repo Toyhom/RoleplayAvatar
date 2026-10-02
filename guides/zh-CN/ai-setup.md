@@ -15,12 +15,14 @@ vLLM、SGLang、llama.cpp 和各模块显存参数见[本地推理与性能配�
 下载源：[国内 https://hf-mirror.com / Hugging Face / 其他镜像]
 首选语言：中文。
 
-先阅读 README.md、guides/setup.md、guides/models.md 和工作区的适用指令。
+先阅读 README.md、guides/setup.md、guides/models.md、guides/performance.md 和工作区的适用指令。
 检查 Python、Node、GPU 当前可用性、磁盘和已有模型，复用完整兼容的权重。
 如果机器已有 GPU 队列，按照其账户和队列流程提交任务。
 
 1. 说明选择的在线模型、创建模型、显存预算以及同时运行的服务。
    使用厂商 API 时确认模型 ID、区域端点和所需密钥变量。
+   本地对话按硬件选择 vLLM、SGLang 或 llama.cpp，设置上下文、并发数和显存预算。
+   使用相同权重的智能体共享一个推理端点。
 2. 在指定位置创建独立环境，安装 Web、构建前端并运行 CPU 测试。
    按部署指南分别安装模型服务依赖。
 3. 使用 avatar models recommend/list/download/configure 选择与下载。
@@ -29,7 +31,7 @@ vLLM、SGLang、llama.cpp 和各模块显存参数见[本地推理与性能配�
 4. 写好私有 .local.env 和 configs/models.local.json，填真实路径、解释器、
    每个智能体的模型和服务 URL。密钥值通过私有环境变量提供。
    自由文本角色模型使用 actor_director，其他控制任务使用通用指令模型。
-5. 启动模型服务和 Web，检查各服务 /healthz 与 /api/services。
+5. 启动模型服务和 Web，检查各服务的健康接口与 /api/services。
    如使用官方 Live2D 示例，下载资源、生成参考声线，再导入角色库。
 6. 验证真实回复、语音播放、表情动作、打断、新会话和 JSON 导出；
    同时验证麦克风，以及所选配置中的角色创建或导入流程。

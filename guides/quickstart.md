@@ -37,6 +37,8 @@ For local models, first request a recommendation. `--vram-gib` is memory **per G
 
 Remove `--dry-run` to download. The `--mirror` option uses **https://hf-mirror.com**. Omit it for Hugging Face, or use `--endpoint URL`. Downloading a preset gets chat, speech and ASR weights; `--creation` adds the large image and voice-design models.
 
+For local dialogue, choose an accelerated engine and memory budget in [Performance](performance.md).
+
 Continue with [Installation](setup.md), which covers model environments, resource installation and service startup. You can also copy [these instructions](ai-setup.md) into Codex or Claude Code to have it perform the setup.
 
 ## 3. Use the studio

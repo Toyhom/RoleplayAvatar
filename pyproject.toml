@@ -19,6 +19,9 @@ avatar = "roleplay_avatar.cli:main"
 [project.entry-points."vllm.general_plugins"]
 avatar_uuid_devices = "roleplay_avatar.vllm_devices:register"
 
+[project.entry-points."vllm.platform_plugins"]
+avatar_uuid_devices = "roleplay_avatar.vllm_platform:register"
+
 [tool.setuptools.packages.find]
 where = ["src"]
 

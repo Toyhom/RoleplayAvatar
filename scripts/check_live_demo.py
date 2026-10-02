@@ -52,6 +52,7 @@ async def main():
                 texts = []
                 events = []
                 first = None
+                first_text = None
                 sequence = 0
                 async with asyncio.timeout(180):
                     while True:
@@ -62,6 +63,8 @@ async def main():
                         events.append(event)
                         assert event["type"] not in {"error", "request_error"}, event
                         if event["type"] == "text":
+                            if first_text is None:
+                                first_text = time.perf_counter() - started
                             texts.append(event["data"]["text"])
                         if event["type"] == "audio":
                             first = first if first is not None else time.perf_counter() - started
@@ -83,6 +86,7 @@ async def main():
                 result = {
                     "character": character,
                     "round": index,
+                    "first_text_s": first_text,
                     "first_audio_s": first,
                     "generation_s": time.perf_counter() - started,
                     "audio_s": len(pcm) / 48000,

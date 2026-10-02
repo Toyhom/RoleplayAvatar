@@ -1,7 +1,7 @@
 {
   "models": {
     "roleplay": {"path": "/srv/models/my-chat-checkpoint"},
-    "image": {"offload": "model", "vae_tiling": true, "vae_slicing": true, "compile": false}
+    "image": {"offload": "model", "compile": false}
   },
   "inference": {
     "roleplay": {
