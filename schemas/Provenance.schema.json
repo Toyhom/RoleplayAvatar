@@ -1,0 +1,59 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "kind": {
+      "enum": [
+        "project_authored_fixture",
+        "external_asset",
+        "generated_asset"
+      ],
+      "title": "Kind",
+      "type": "string"
+    },
+    "sources": {
+      "items": {
+        "additionalProperties": {
+          "type": "string"
+        },
+        "type": "object"
+      },
+      "title": "Sources",
+      "type": "array"
+    },
+    "seed": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Seed"
+    },
+    "generation_record": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Generation Record"
+    },
+    "notes": {
+      "title": "Notes",
+      "type": "string"
+    }
+  },
+  "required": [
+    "kind",
+    "sources",
+    "notes"
+  ],
+  "title": "Provenance",
+  "type": "object"
+}

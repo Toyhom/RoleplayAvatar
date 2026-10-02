@@ -1,0 +1,12 @@
+{
+  "body_topology": "custom",
+  "face_mode": "none",
+  "eye_mode": "none",
+  "appendages": [],
+  "controller": "creature",
+  "motion_mode": "procedural",
+  "active_streams": [
+    "audio",
+    "motion"
+  ]
+}

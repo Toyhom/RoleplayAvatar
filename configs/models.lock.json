@@ -1,0 +1,35 @@
+{
+  "models": [
+    {
+      "repo_id": "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign",
+      "revision": "5ecdb67327fd37bb2e042aab12ff7391903235d3",
+      "role": "offline voice design",
+      "license": "apache-2.0"
+    },
+    {
+      "repo_id": "Qwen/Qwen3-TTS-12Hz-1.7B-Base",
+      "revision": "fd4b254389122332181a7c3db7f27e918eec64e3",
+      "role": "same-family voice consistency baseline",
+      "license": "apache-2.0"
+    },
+    {
+      "repo_id": "FunAudioLLM/Fun-CosyVoice3-0.5B-2512",
+      "revision": "29e01c4e8d000f4bcd70751be16fa94bf3d85a18",
+      "role": "online streaming TTS",
+      "license": "apache-2.0"
+    },
+    {
+      "repo_id": "openai/whisper-small",
+      "revision": "973afd24965f72e36ca33b3055d56a652f456b4d",
+      "role": "microphone transcription",
+      "license": "apache-2.0"
+    }
+  ],
+  "roleplay": {
+    "repo_id": "Qwen/Qwen3-8B",
+    "role": "roleplay and shared agents",
+    "license": "apache-2.0",
+    "revision": null,
+    "revision_policy": "Select a release or local checkpoint through AVATAR_ROLEPLAY_MODEL_PATH."
+  }
+}

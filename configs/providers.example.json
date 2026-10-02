@@ -1,0 +1,21 @@
+{
+  "agents": {
+    "default": {
+      "provider": "qwen", "model": "qwen-plus",
+      "generation": {"temperature": 0.7, "max_tokens": 1400},
+      "extra_body": {"enable_thinking": false}
+    },
+    "roleplay": {
+      "provider": "openai-compatible", "url": "http://127.0.0.1:8000/v1",
+      "model": "my-roleplay-checkpoint", "require_key": false,
+      "output_mode": "actor_director"
+    },
+    "performance_director": {},
+    "initiative": {"provider": "deepseek", "model": "deepseek-chat"},
+    "character_design": {"provider": "anthropic", "model": "YOUR_CLAUDE_MODEL_ID", "require_key": true},
+    "voice_direction": {"provider": "openai", "model": "YOUR_OPENAI_MODEL_ID", "require_key": true},
+    "vision": {"provider": "qwen", "model": "qwen-vl-plus", "extra_body": {"enable_thinking": false}}
+  },
+  "models": {"vision": {"adapter": "api"}},
+  "prompts": {}
+}

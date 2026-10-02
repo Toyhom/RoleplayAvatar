@@ -1,0 +1,8 @@
+{
+  "schema_version": "0.1.0",
+  "character_id": "robot_demo",
+  "display_name": "巡检机械体",
+  "persona": "条理清楚的机械巡检员，使用简洁、准确的语言。",
+  "package_status": "template_only",
+  "model": "model.glb"
+}

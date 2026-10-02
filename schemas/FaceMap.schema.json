@@ -1,0 +1,58 @@
+{
+  "$defs": {
+    "FaceChannel": {
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "target": {
+          "title": "Target",
+          "type": "string"
+        },
+        "minimum": {
+          "default": 0,
+          "title": "Minimum",
+          "type": "number"
+        },
+        "maximum": {
+          "default": 1,
+          "title": "Maximum",
+          "type": "number"
+        },
+        "renderers": {
+          "items": {
+            "enum": [
+              "3d",
+              "2d"
+            ],
+            "type": "string"
+          },
+          "maxItems": 1,
+          "minItems": 1,
+          "title": "Renderers",
+          "type": "array"
+        }
+      },
+      "required": [
+        "source",
+        "target"
+      ],
+      "title": "FaceChannel",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "channels": {
+      "items": {
+        "$ref": "#/$defs/FaceChannel"
+      },
+      "title": "Channels",
+      "type": "array"
+    }
+  },
+  "title": "FaceMap",
+  "type": "object"
+}

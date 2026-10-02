@@ -1,0 +1,16 @@
+{
+  "status": "not_run",
+  "checks": {
+    "skeleton": "pending",
+    "skinning": "pending",
+    "materials": "pending",
+    "coordinates": "pending",
+    "joint_motion": "pending",
+    "voice_reference": "pending",
+    "license": "pending"
+  },
+  "known_issues": [
+    "No GLB, animation clip or speech reference is bundled.",
+    "Head/Jaw/Sensor are fixture names, not verified model joints."
+  ]
+}

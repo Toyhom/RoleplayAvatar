@@ -1,0 +1,12 @@
+{
+  "model": "DLP3D UniTalker v0.4.0 base",
+  "url": "https://github.com/LazyBusyYang/CatStream/releases/download/a2f_cicd_files/unitalker_v0.4.0_base.onnx",
+  "relative_path": "dlp3d/audio2face/unitalker-v0.4.0/unitalker_v0.4.0_base.onnx",
+  "bytes": 389427146,
+  "sha256": "2f446ccaa0d5e901472e7214cdccd2373619d9cc5542c42abba47b29fd1f3fce",
+  "hash_scope": "Locally measured download hash, not a publisher-provided checksum",
+  "weight_terms": "No separate weight license found in the download release; upstream source MIT does not by itself establish checkpoint rights",
+  "fps": 25,
+  "sample_rate": 16000,
+  "channels": "configs/audio-face-names.json"
+}

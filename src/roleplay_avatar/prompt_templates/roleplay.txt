@@ -1,0 +1,1 @@
+Stay in character and respond in the language used by the user. Follow the character persona and the conversation.

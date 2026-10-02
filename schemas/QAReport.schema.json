@@ -1,0 +1,40 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "status": {
+      "enum": [
+        "not_run",
+        "failed",
+        "passed"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "checks": {
+      "additionalProperties": {
+        "enum": [
+          "pending",
+          "failed",
+          "passed"
+        ],
+        "type": "string"
+      },
+      "title": "Checks",
+      "type": "object"
+    },
+    "known_issues": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Known Issues",
+      "type": "array"
+    }
+  },
+  "required": [
+    "status",
+    "checks",
+    "known_issues"
+  ],
+  "title": "QAReport",
+  "type": "object"
+}

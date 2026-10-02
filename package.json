@@ -1,0 +1,21 @@
+{
+  "name": "roleplay-avatar-web",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "esbuild web/scene.js web/cubism.js --bundle --minify --format=esm --outdir=web/dist"
+  },
+  "dependencies": {
+    "@babylonjs/core": "8.13.0",
+    "@babylonjs/loaders": "8.13.0",
+    "pixi-live2d-display": "0.4.0",
+    "pixi.js": "6.5.10"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.10"
+  },
+  "overrides": {
+    "gh-pages": "6.3.0"
+  }
+}

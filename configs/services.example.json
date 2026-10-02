@@ -1,0 +1,7 @@
+{
+  "services": {
+    "controller": {"python":"${AVATAR_LLM_PYTHON}", "script":"services/llm_service.py", "model_role":"roleplay", "port":18110},
+    "asr": {"python":"${AVATAR_ASR_PYTHON}", "script":"services/whisper_service.py", "model_role":"asr", "port":18140},
+    "tts": {"python":"${AVATAR_TTS_PYTHON}", "script":"services/speech_service.py", "model_role":"tts", "port":18120}
+  }
+}

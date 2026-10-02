@@ -1,0 +1,80 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "type": {
+      "enum": [
+        "turn_start",
+        "text",
+        "stream_start",
+        "audio",
+        "motion",
+        "face",
+        "stream_end",
+        "turn_end",
+        "cancelled",
+        "error"
+      ],
+      "title": "Type",
+      "type": "string"
+    },
+    "turn_id": {
+      "pattern": "^[a-zA-Z0-9_-]{1,80}$",
+      "title": "Turn Id",
+      "type": "string"
+    },
+    "conversation_id": {
+      "anyOf": [
+        {
+          "pattern": "^[a-zA-Z0-9_-]{1,80}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Conversation Id"
+    },
+    "segment_id": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Segment Id",
+      "type": "integer"
+    },
+    "sequence": {
+      "minimum": 0,
+      "title": "Sequence",
+      "type": "integer"
+    },
+    "sample_offset": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Sample Offset",
+      "type": "integer"
+    },
+    "sample_rate": {
+      "const": 24000,
+      "default": 24000,
+      "title": "Sample Rate",
+      "type": "integer"
+    },
+    "data": {
+      "additionalProperties": true,
+      "title": "Data",
+      "type": "object"
+    }
+  },
+  "required": [
+    "type",
+    "turn_id",
+    "sequence"
+  ],
+  "title": "Event",
+  "type": "object"
+}

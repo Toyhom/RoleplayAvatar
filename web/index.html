@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>镜界 · 角色会客室</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <main>
+    <header><a class="brand" href="/">镜界<span>ROLEPLAY STUDIO</span></a><nav><label class="language-control"><span class="sr-only">语言</span><select id="language" aria-label="语言"><option value="en">English</option><option value="zh-CN">简体中文</option><option value="ja">日本語</option></select></label><button id="open-create" class="nav-primary">＋ 创建角色</button><button id="open-library" class="text-button">角色与设定</button></nav><span id="connection" class="connection">正在连接</span></header>
+    <div class="heading"><div><span class="eyebrow">MEET SOMEONE EXTRAORDINARY</span><h1>故事，从一句你好开始。</h1></div><p>从一张图片创造角色，让想象有自己的声音。</p></div>
+    <section class="workspace">
+      <div class="stage-panel">
+        <div class="stage-top"><span id="character-name">角色会客室</span><span id="stage-status">正在准备场景</span><span id="character-type" class="type-badge"></span></div>
+        <div class="stage-renderers"><canvas id="scene" aria-label="可拖动旋转的三维角色场景"></canvas><canvas id="portrait-scene" aria-label="可互动的二维角色立绘" hidden></canvas><canvas id="preview-scene" aria-label="CPU 回放示例" hidden></canvas><canvas id="cubism-scene" aria-label="原生 Live2D 角色" hidden></canvas></div><div class="presentation-bar"><button id="frame-view" title="切换全身与上半身构图">近景</button><label>表情试映</label><button data-expression="auto" class="active">自动</button><button data-expression="mouth">张嘴</button><button data-expression="happy">开心</button><button data-expression="sad">低落</button><button data-expression="angry">生气</button><button data-expression="soft">温柔</button><span id="expression-state" class="expression-state">自动表演</span><label class="action-picker">动作试映<select id="action-preview" aria-label="动作试映"><option value="">选择动作</option><option value="nod">点头</option><option value="shake_head">摇头</option><option value="tilt">歪头</option><option value="bow">鞠躬</option><option value="lean_forward">前倾</option><option value="lean_back">后仰</option><option value="sway">轻摆</option><option value="bounce">跃动</option></select></label><select id="native-motion" aria-label="原生动作" hidden><option value="">原生动作</option></select><span id="action-state" class="expression-state"></span></div>
+        <div class="stage-caption"><span class="live-dot"></span><span id="state" aria-live="polite">等待连接</span><span class="orbit-hint">拖动旋转 · 滚轮缩放</span></div>
+        <div id="asset-credit" class="asset-credit"></div><div id="character-cards" class="character-cards"></div>
+      </div>
+      <aside class="conversation">
+        <div class="conversation-header"><div><span class="eyebrow">CONVERSATION</span><h2>此刻，与你对话</h2></div><button id="mute" class="icon-button" title="关闭声音">声音开</button></div>
+        <p id="persona" class="persona"></p><div class="conversation-toolbar"><label for="conversation-select">当前对话</label><select id="conversation-select" aria-label="当前角色的对话"></select><button id="new-conversation" type="button" disabled>＋ 新对话</button><a id="export-conversation" class="text-button" download>导出 JSON</a></div><div class="initiative-row"><label><input id="initiative-enabled" type="checkbox"> 主动聊天</label><span id="initiative-status">开启后，角色会在你空闲时主动开口</span></div>
+        <div id="messages" class="messages" aria-live="polite"><div class="welcome"><div class="welcome-mark"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1"><path d="M20 3C20 14 14 20 3 20C14 20 20 26 20 37C20 26 26 20 37 20C26 20 20 14 20 3Z"/></svg></div><h3>有些相遇，值得开口。</h3><p>可以问一个问题，也可以分享今天的小事。</p></div></div>
+        <div id="suggestions" class="suggestions"><button>介绍一下你自己</button><button>带我去看看你的世界</button><button>今天有点累，能陪我聊聊吗</button></div>
+        <div class="composer">
+          <div class="style-row"><label for="emotion">语气</label><select id="emotion"><option value="auto">随对话自动变化</option><option value="neutral">自然</option><option value="happy">开心</option><option value="soft">轻声</option><option value="sad">低落</option></select><button id="reference" class="text-button">试听声线</button></div>
+          <div class="microphone-row"><button id="microphone" type="button" disabled>● 语音输入</button><button id="cancel-recording" type="button" hidden>取消</button><label><input id="voice-auto-send" type="checkbox" checked>识别后发送</label></div><div id="microphone-status" class="microphone-status" role="status">点击录音，说完后再点结束</div>
+          <textarea id="prompt" rows="2" maxlength="1000" placeholder="对它说点什么…" aria-label="聊天消息"></textarea>
+          <div class="actions"><span>Enter 发送 · Shift + Enter 换行</span><button id="cancel" class="cancel" disabled>打断</button><button id="start" disabled>发送 <span>↗</span></button></div>
+        </div>
+      </aside>
+    </section>
+    <footer><span>镜界 · 图片创造角色，故事连接彼此</span><details><summary>运行信息</summary><div id="runtime-info">正在检查服务</div><div>播放时钟 <span id="clock">0.000 s</span> · 动作 <span id="motion">idle</span> · <span id="counter">0</span> 条事件</div><meter id="energy" min="0" max="0.15" value="0"></meter><pre id="events"></pre></details></footer>
+  </main>
+  <dialog id="create-dialog" class="studio-dialog">
+    <div class="dialog-heading"><div><span class="eyebrow">CHARACTER STUDIO</span><h2>让你的角色，来到这里。</h2></div><button id="close-create" class="icon-button" aria-label="关闭创建窗口">×</button></div>
+    <p class="dialog-intro">一张角色图片，加上几句话。其余的，交给想象力。</p>
+    <div class="creation-options"><label>角色类型 <select id="creation-mode"><option value="2d">2D 角色</option><option value="3d">3D 角色</option></select></label><label>资源来源 <select id="creation-source"><option value="image">上传图片，自动生成</option><option value="live2d">上传完整 Live2D ZIP</option></select></label><label>声线候选 <select id="voice-count"><option value="3">3 种</option><option value="5" selected>5 种</option><option value="8">8 种</option></select></label></div><p id="creation-help" class="form-note">每个角色只有一种展示类型。需要另一种类型时，请分别创建。</p>
+    <form id="create-form" class="create-grid">
+      <label class="upload-zone" id="drop-zone"><input id="character-image" type="file" accept="image/png,image/jpeg,image/webp" required><img id="upload-preview" alt="上传的角色图片" hidden><span id="upload-hint"><strong>＋<br>放入你的角色图片</strong><small>点击选择或拖入图片<br>PNG · JPEG · WebP，最大 10 MB</small></span></label>
+      <div class="creation-brief"><label for="character-brief">它是谁？</label><textarea id="character-brief" rows="6" minlength="2" maxlength="1500" required placeholder="例如：住在古老森林里的成年精灵向导。外表冷静，内心温柔，喜欢用植物讲故事。声音轻盈但不幼稚。"></textarea><p>写下身份、性格或声音偏好。我们会结合图片，补全角色设定、动作表情和专属声线。导入 Live2D 时沿用资源内的原生绑定。</p><button id="create-submit" type="submit">创造这个角色 <span>↗</span></button><p class="form-note">首次生成需要一些时间。你可以关闭窗口，回来继续查看。</p></div>
+    </form>
+    <p id="creation-error" class="form-error" role="alert"></p>
+    <div class="jobs-heading"><h3>创作进度</h3><span id="jobs-note">作品会自动保存在这里</span></div><div id="creation-jobs" class="creation-jobs"></div>
+  </dialog>
+  <dialog id="library-dialog" class="studio-dialog">
+    <div class="dialog-heading"><div><span class="eyebrow">YOUR CHARACTER</span><h2 id="library-title">角色设定</h2></div><button id="close-library" class="icon-button" aria-label="关闭角色设定">×</button></div>
+    <div id="library-empty" hidden>先创建一个属于你的角色。</div>
+    <div id="library-content"><div class="library-layout"><img id="library-image" alt="角色预览"><div><p id="character-tagline"></p><label for="edit-name">名字</label><input id="edit-name" maxlength="50"><label for="edit-persona">完整设定</label><textarea id="edit-persona" rows="10" maxlength="2400"></textarea><button id="save-persona">保存设定</button></div></div>
+    <div class="voice-heading"><h3>选择它的声音</h3><p id="voice-reason"></p></div><div id="voice-candidates" class="voice-candidates"></div><p id="voice-prompt" class="voice-prompt"></p>
+    <div id="asset-provenance" class="asset-provenance"></div><div class="library-footer"><span id="library-feedback" role="status"></span><a id="export-character" class="export-button">导出角色包 ↓</a></div></div>
+  </dialog>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <script type="module" src="/static/i18n.js"></script>
+  <script type="module" src="/static/app.js"></script>
+  <script type="module" src="/static/studio.js"></script>
+</body>
+</html>

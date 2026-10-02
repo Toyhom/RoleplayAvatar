@@ -1,0 +1,12 @@
+{
+  "body_topology": "humanoid",
+  "face_mode": "jaw_only",
+  "eye_mode": "none",
+  "appendages": [],
+  "controller": "humanoid",
+  "motion_mode": "procedural",
+  "active_streams": [
+    "audio",
+    "motion"
+  ]
+}

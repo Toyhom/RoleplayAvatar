@@ -1,0 +1,81 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "const": "speak",
+      "title": "Type",
+      "type": "string"
+    },
+    "turn_id": {
+      "pattern": "^[a-zA-Z0-9_-]{1,80}$",
+      "title": "Turn Id",
+      "type": "string"
+    },
+    "character_id": {
+      "pattern": "^[a-zA-Z0-9_-]{1,80}$",
+      "title": "Character Id",
+      "type": "string"
+    },
+    "conversation_id": {
+      "anyOf": [
+        {
+          "pattern": "^[a-zA-Z0-9_-]{1,80}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Conversation Id"
+    },
+    "text": {
+      "maxLength": 1000,
+      "minLength": 1,
+      "title": "Text",
+      "type": "string"
+    },
+    "source": {
+      "default": "user",
+      "enum": [
+        "user",
+        "initiative"
+      ],
+      "title": "Source",
+      "type": "string"
+    },
+    "initiative_ticket": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Initiative Ticket"
+    },
+    "emotion": {
+      "default": "auto",
+      "enum": [
+        "auto",
+        "neutral",
+        "happy",
+        "sad",
+        "angry",
+        "soft"
+      ],
+      "title": "Emotion",
+      "type": "string"
+    }
+  },
+  "required": [
+    "type",
+    "turn_id",
+    "character_id",
+    "text"
+  ],
+  "title": "SpeakRequest",
+  "type": "object"
+}

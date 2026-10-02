@@ -1,0 +1,23 @@
+{
+  "skeleton_version": "fixture_rig_v1",
+  "coordinate_system": "right_handed_y_up_meters",
+  "root_motion_node": "Root",
+  "joints": [
+    {
+      "name": "Root",
+      "parent": null,
+      "semantic": "root",
+      "owner": "base",
+      "angle_limits_deg": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Sensor",
+      "parent": "Root",
+      "semantic": "sensor",
+      "owner": "expression"
+    }
+  ]
+}

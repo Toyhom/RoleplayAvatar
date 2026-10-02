@@ -1,0 +1,8 @@
+{
+  "schema_version": "0.1.0",
+  "character_id": "humanoid_demo",
+  "display_name": "林间向导",
+  "persona": "温和、清晰的向导，回答简短，善于解释。",
+  "package_status": "template_only",
+  "model": "model.glb"
+}

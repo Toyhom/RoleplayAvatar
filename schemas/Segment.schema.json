@@ -1,0 +1,158 @@
+{
+  "$defs": {
+    "ActionCue": {
+      "additionalProperties": false,
+      "description": "One bounded clip, timed from the first audio sample of its sentence.",
+      "properties": {
+        "name": {
+          "enum": [
+            "nod",
+            "shake_head",
+            "tilt",
+            "bow",
+            "lean_forward",
+            "lean_back",
+            "sway",
+            "bounce"
+          ],
+          "title": "Name",
+          "type": "string"
+        },
+        "start_s": {
+          "default": 0,
+          "maximum": 5,
+          "minimum": 0,
+          "title": "Start S",
+          "type": "number"
+        },
+        "duration_s": {
+          "default": 1.6,
+          "maximum": 4,
+          "minimum": 0.4,
+          "title": "Duration S",
+          "type": "number"
+        },
+        "strength": {
+          "default": 0.6,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Strength",
+          "type": "number"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "ActionCue",
+      "type": "object"
+    },
+    "Delivery": {
+      "additionalProperties": false,
+      "properties": {
+        "tone": {
+          "default": "conversational",
+          "enum": [
+            "conversational",
+            "warm",
+            "playful",
+            "serious"
+          ],
+          "title": "Tone",
+          "type": "string"
+        },
+        "pace": {
+          "default": "natural",
+          "enum": [
+            "natural",
+            "relaxed",
+            "brisk"
+          ],
+          "title": "Pace",
+          "type": "string"
+        },
+        "pause_after_ms": {
+          "default": 260,
+          "maximum": 900,
+          "minimum": 0,
+          "title": "Pause After Ms",
+          "type": "integer"
+        }
+      },
+      "title": "Delivery",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "turn_id": {
+      "pattern": "^[a-zA-Z0-9_-]{1,80}$",
+      "title": "Turn Id",
+      "type": "string"
+    },
+    "segment_id": {
+      "minimum": 0,
+      "title": "Segment Id",
+      "type": "integer"
+    },
+    "sequence": {
+      "minimum": 0,
+      "title": "Sequence",
+      "type": "integer"
+    },
+    "text": {
+      "maxLength": 2000,
+      "minLength": 1,
+      "title": "Text",
+      "type": "string"
+    },
+    "emotion": {
+      "default": "neutral",
+      "title": "Emotion",
+      "type": "string"
+    },
+    "delivery": {
+      "$ref": "#/$defs/Delivery"
+    },
+    "intensity": {
+      "default": 0.4,
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Intensity",
+      "type": "number"
+    },
+    "action_intent": {
+      "default": "speak",
+      "enum": [
+        "idle",
+        "long_idle",
+        "listen",
+        "think",
+        "speak",
+        "acknowledge",
+        "explain",
+        "uncertain",
+        "alert",
+        "leave",
+        "error"
+      ],
+      "title": "Action Intent",
+      "type": "string"
+    },
+    "actions": {
+      "items": {
+        "$ref": "#/$defs/ActionCue"
+      },
+      "maxItems": 3,
+      "title": "Actions",
+      "type": "array"
+    }
+  },
+  "required": [
+    "turn_id",
+    "segment_id",
+    "sequence",
+    "text"
+  ],
+  "title": "Segment",
+  "type": "object"
+}

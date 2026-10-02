@@ -1,0 +1,13 @@
+{
+  "agents": {
+    "default": {"provider": "local", "url": "http://127.0.0.1:18110", "model": "controller"},
+    "roleplay": {
+      "provider": "openai-compatible", "url": "http://127.0.0.1:8000/v1",
+      "model": "research-checkpoint", "require_key": false, "output_mode": "actor_director",
+      "generation": {"temperature": 0.7, "top_p": 0.9, "max_tokens": 700, "seed": 42}
+    },
+    "performance_director": {"generation": {"temperature": 0.2, "max_tokens": 1400}}
+  },
+  "models": {"roleplay": {"path": "/path/to/checkpoint", "device_map": "auto", "dtype": "bfloat16", "context": 8192, "template_kwargs": {"enable_thinking": false}}},
+  "prompts": {"actor": "Use [thoughts] for private character thoughts and (actions) for visible actions. Respond naturally in the user's language."}
+}

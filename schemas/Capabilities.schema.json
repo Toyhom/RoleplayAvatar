@@ -1,0 +1,81 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "body_topology": {
+      "enum": [
+        "humanoid",
+        "quadruped",
+        "multiped",
+        "serpentine",
+        "custom"
+      ],
+      "title": "Body Topology",
+      "type": "string"
+    },
+    "face_mode": {
+      "enum": [
+        "blendshape",
+        "bone_face",
+        "jaw_only",
+        "none"
+      ],
+      "title": "Face Mode",
+      "type": "string"
+    },
+    "eye_mode": {
+      "default": "none",
+      "enum": [
+        "none",
+        "paired",
+        "custom"
+      ],
+      "title": "Eye Mode",
+      "type": "string"
+    },
+    "appendages": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Appendages",
+      "type": "array"
+    },
+    "controller": {
+      "enum": [
+        "humanoid",
+        "creature"
+      ],
+      "title": "Controller",
+      "type": "string"
+    },
+    "motion_mode": {
+      "enum": [
+        "native_clips",
+        "retargeted_clips",
+        "procedural"
+      ],
+      "title": "Motion Mode",
+      "type": "string"
+    },
+    "active_streams": {
+      "items": {
+        "enum": [
+          "audio",
+          "motion",
+          "face"
+        ],
+        "type": "string"
+      },
+      "title": "Active Streams",
+      "type": "array"
+    }
+  },
+  "required": [
+    "body_topology",
+    "face_mode",
+    "controller",
+    "motion_mode",
+    "active_streams"
+  ],
+  "title": "Capabilities",
+  "type": "object"
+}

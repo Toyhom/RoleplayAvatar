@@ -1,0 +1,63 @@
+{
+  "repositories": {
+    "dlp3d": {
+      "url": "https://github.com/dlp3d-ai/dlp3d.ai.git",
+      "commit": "a882f9f84967d0647e5923a5c1a84bd6cde15fb2",
+      "role": "reference playback architecture",
+      "code_license": "MIT; asset terms separate"
+    },
+    "qwen3_tts": {
+      "url": "https://github.com/QwenLM/Qwen3-TTS.git",
+      "commit": "022e286b98fbec7e1e916cb940cdf532cd9f488e",
+      "role": "offline voice design",
+      "code_license": "Apache-2.0"
+    },
+    "cosyvoice": {
+      "url": "https://github.com/QwenAudio/CosyVoice.git",
+      "commit": "074ca6dc9e80a2f424f1f74b48bdd7d3fea531cc",
+      "role": "streaming speech synthesis",
+      "code_license": "Apache-2.0"
+    },
+    "anigen": {
+      "url": "https://github.com/VAST-AI-Research/AniGen.git",
+      "commit": "c49db3d6b466537a02ccf2286688903d77af7e4f",
+      "role": "optional image-to-3D",
+      "code_license": "MIT; third-party terms separate"
+    },
+    "dsine-src": {
+      "url": "https://github.com/hugoycj/DSINE-hub.git",
+      "commit": "a6b7d253d515f57404002da58f0c61e90d0387a3",
+      "role": "surface normals for image-to-3D",
+      "code_license": "DSINE Software Licence: non-commercial internal or academic research only",
+      "transport": "archive"
+    },
+    "utils3d": {
+      "url": "https://github.com/EasternJournalist/utils3d.git",
+      "commit": "9a4eb15e4021b67b12c460c7057d642626897ec8",
+      "role": "mesh operations",
+      "code_license": "MIT",
+      "transport": "archive"
+    },
+    "pytorch3d": {
+      "url": "https://github.com/facebookresearch/pytorch3d.git",
+      "commit": "33824be3cbc87a7dd1db0f6a9a9de9ac81b2d0ba",
+      "role": "CUDA geometry operations",
+      "code_license": "BSD-3-Clause",
+      "transport": "archive"
+    },
+    "nvdiffrast": {
+      "url": "https://github.com/NVlabs/nvdiffrast.git",
+      "commit": "729261dc64c4241ea36efda84fbf532cc8b425b8",
+      "role": "mesh rasterization and texture baking",
+      "code_license": "Nvidia Source Code License (1-Way Commercial)",
+      "transport": "archive"
+    },
+    "audio2face": {
+      "url": "https://github.com/dlp3d-ai/audio2face.git",
+      "commit": "ceba323464d609759dc25ccefdef6c05179d980b",
+      "transport": "archive",
+      "role": "UniTalker audio-to-facial-coefficients reference implementation and channel order",
+      "code_license": "MIT; checkpoint terms separate"
+    }
+  }
+}

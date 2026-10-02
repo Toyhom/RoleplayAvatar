@@ -1,0 +1,166 @@
+{
+  "$defs": {
+    "Joint": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "parent": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Parent"
+        },
+        "semantic": {
+          "title": "Semantic",
+          "type": "string"
+        },
+        "rest_translation": {
+          "default": [
+            0,
+            0,
+            0
+          ],
+          "maxItems": 3,
+          "minItems": 3,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Rest Translation",
+          "type": "array"
+        },
+        "rest_rotation_xyzw": {
+          "default": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "maxItems": 4,
+          "minItems": 4,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Rest Rotation Xyzw",
+          "type": "array"
+        },
+        "local_axis": {
+          "default": [
+            1,
+            0,
+            0
+          ],
+          "maxItems": 3,
+          "minItems": 3,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Local Axis",
+          "type": "array"
+        },
+        "angle_limits_deg": {
+          "default": [
+            -10,
+            10
+          ],
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Angle Limits Deg",
+          "type": "array"
+        },
+        "owner": {
+          "enum": [
+            "base",
+            "expression",
+            "speech",
+            "gaze"
+          ],
+          "title": "Owner",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "parent",
+        "semantic",
+        "owner"
+      ],
+      "title": "Joint",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "skeleton_version": {
+      "title": "Skeleton Version",
+      "type": "string"
+    },
+    "coordinate_system": {
+      "const": "right_handed_y_up_meters",
+      "title": "Coordinate System",
+      "type": "string"
+    },
+    "root_motion_node": {
+      "title": "Root Motion Node",
+      "type": "string"
+    },
+    "joints": {
+      "items": {
+        "$ref": "#/$defs/Joint"
+      },
+      "minItems": 1,
+      "title": "Joints",
+      "type": "array"
+    }
+  },
+  "required": [
+    "skeleton_version",
+    "coordinate_system",
+    "root_motion_node",
+    "joints"
+  ],
+  "title": "RigMap",
+  "type": "object"
+}

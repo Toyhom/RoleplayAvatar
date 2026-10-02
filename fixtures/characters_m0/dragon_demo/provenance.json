@@ -1,0 +1,12 @@
+{
+  "kind": "project_authored_fixture",
+  "sources": [
+    {
+      "name": "M0 fixture",
+      "source": "fixtures/characters_m0",
+      "rights": "Original configuration only; no third-party character, model or voice included"
+    }
+  ],
+  "seed": 0,
+  "notes": "Symbolic joints for protocol validation only; replace from real GLB before M1/M2."
+}

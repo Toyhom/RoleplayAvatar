@@ -1,0 +1,13 @@
+{
+  "backend": "replay",
+  "model_id": null,
+  "revision": null,
+  "reference_audio": null,
+  "reference_text": null,
+  "reference_sha256": null,
+  "supported_styles": [
+    "neutral"
+  ],
+  "design_prompt": "稳定音高、规整停顿、克制情绪的清晰成年声线。",
+  "effects": "dry"
+}

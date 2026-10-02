@@ -1,0 +1,21 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "const": "cancel",
+      "title": "Type",
+      "type": "string"
+    },
+    "turn_id": {
+      "pattern": "^[a-zA-Z0-9_-]{1,80}$",
+      "title": "Turn Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "type",
+    "turn_id"
+  ],
+  "title": "CancelRequest",
+  "type": "object"
+}

@@ -1,0 +1,115 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "character_id": {
+      "pattern": "^[a-zA-Z0-9_-]{1,80}$",
+      "title": "Character Id",
+      "type": "string"
+    },
+    "display_name": {
+      "title": "Display Name",
+      "type": "string"
+    },
+    "persona": {
+      "title": "Persona",
+      "type": "string"
+    },
+    "package_status": {
+      "default": "template_only",
+      "enum": [
+        "template_only",
+        "asset_candidate",
+        "validated"
+      ],
+      "title": "Package Status",
+      "type": "string"
+    },
+    "model": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": "model.glb",
+      "title": "Model"
+    },
+    "display_rotation_y_deg": {
+      "default": 0,
+      "maximum": 360,
+      "minimum": -360,
+      "title": "Display Rotation Y Deg",
+      "type": "number"
+    },
+    "display_height_m": {
+      "default": 2.05,
+      "exclusiveMinimum": 0,
+      "maximum": 10,
+      "title": "Display Height M",
+      "type": "number"
+    },
+    "renderer_2d": {
+      "default": "portrait",
+      "enum": [
+        "portrait",
+        "cubism"
+      ],
+      "title": "Renderer 2D",
+      "type": "string"
+    },
+    "live2d_model": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Live2D Model"
+    },
+    "live2d_parameter_map": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Live2D Parameter Map",
+      "type": "object"
+    },
+    "native_animation_map": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Native Animation Map",
+      "type": "object"
+    },
+    "presentation_modes": {
+      "items": {
+        "enum": [
+          "3d",
+          "2d"
+        ],
+        "type": "string"
+      },
+      "maxItems": 1,
+      "minItems": 1,
+      "title": "Presentation Modes",
+      "type": "array"
+    }
+  },
+  "required": [
+    "character_id",
+    "display_name",
+    "persona"
+  ],
+  "title": "Profile",
+  "type": "object"
+}

@@ -1,0 +1,63 @@
+{
+  "models": {
+    "roleplay": {
+      "path": "",
+      "device_map": "auto",
+      "dtype": "bfloat16",
+      "context": 8192,
+      "quantization": "none",
+      "template_kwargs": {
+        "enable_thinking": false
+      }
+    },
+    "vision": {
+      "path": ""
+    },
+    "image": {
+      "path": ""
+    },
+    "image_edit": {
+      "path": ""
+    },
+    "voice_design": {
+      "path": ""
+    },
+    "tts": {
+      "path": ""
+    },
+    "asr": {
+      "path": ""
+    },
+    "audio_face": {
+      "path": ""
+    },
+    "face_landmarker": {
+      "path": ""
+    },
+    "segmentation": {
+      "path": ""
+    },
+    "mesh": {
+      "path": ""
+    },
+    "dinov2": {
+      "path": ""
+    },
+    "normals": {
+      "path": ""
+    },
+    "voice_clone": {
+      "path": ""
+    }
+  },
+  "agents": {
+    "default": {},
+    "roleplay": {},
+    "initiative": {},
+    "character_design": {},
+    "voice_direction": {},
+    "performance_director": {},
+    "vision": {}
+  },
+  "prompts": {}
+}

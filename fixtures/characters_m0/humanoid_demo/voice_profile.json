@@ -1,0 +1,13 @@
+{
+  "backend": "replay",
+  "model_id": null,
+  "revision": null,
+  "reference_audio": null,
+  "reference_text": null,
+  "reference_sha256": null,
+  "supported_styles": [
+    "neutral"
+  ],
+  "design_prompt": "清晰轻盈的成年声线，普通话自然，吐字细致。",
+  "effects": "dry"
+}

@@ -1,0 +1,69 @@
+{
+  "schema_version": "0.1.0",
+  "character_ids": [
+    "humanoid_demo",
+    "dragon_demo",
+    "robot_demo"
+  ],
+  "candidate_styles": [
+    "neutral",
+    "happy",
+    "sad"
+  ],
+  "style_status": "verify against each pinned backend before rendering",
+  "seed": 42,
+  "texts": [
+    {
+      "id": "zh_01",
+      "text": "你好，请介绍一下你自己。"
+    },
+    {
+      "id": "zh_02",
+      "text": "我已经准备好了。"
+    },
+    {
+      "id": "zh_03",
+      "text": "请解释一下这座山谷的来历。"
+    },
+    {
+      "id": "zh_04",
+      "text": "今天是九月二十九日，温度是二十三点五度。"
+    },
+    {
+      "id": "zh_05",
+      "text": "林晓明和欧阳若水正在入口等你。"
+    },
+    {
+      "id": "zh_06",
+      "text": "不要打开左边的门，请走右边。"
+    },
+    {
+      "id": "zh_07",
+      "text": "我不确定这个决定是否正确，你怎么看？"
+    },
+    {
+      "id": "zh_08",
+      "text": "太好了，我们终于找到回家的路了！"
+    },
+    {
+      "id": "zh_09",
+      "text": "这次任务失败了，但我们还可以重新开始。"
+    },
+    {
+      "id": "zh_10",
+      "text": "请停一下，我想先问另外一个问题。"
+    },
+    {
+      "id": "zh_11",
+      "text": "从这里沿河岸前行，经过第二座桥，再向北走三百米，就能看见观测站。"
+    },
+    {
+      "id": "zh_12",
+      "text": "再见，愿你一路平安。"
+    }
+  ],
+  "expected_counts": {
+    "style_capable_backend": 108,
+    "qwen3_base": 36
+  }
+}

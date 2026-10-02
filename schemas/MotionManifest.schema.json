@@ -1,0 +1,119 @@
+{
+  "$defs": {
+    "Motion": {
+      "additionalProperties": false,
+      "properties": {
+        "file": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "File"
+        },
+        "procedural": {
+          "anyOf": [
+            {
+              "enum": [
+                "neutral",
+                "head_nod",
+                "speech_rhythm"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Procedural"
+        },
+        "duration_s": {
+          "default": 1,
+          "exclusiveMinimum": 0,
+          "maximum": 60,
+          "title": "Duration S",
+          "type": "number"
+        },
+        "loop": {
+          "default": false,
+          "title": "Loop",
+          "type": "boolean"
+        },
+        "blend_s": {
+          "default": 0.15,
+          "maximum": 2,
+          "minimum": 0,
+          "title": "Blend S",
+          "type": "number"
+        },
+        "fallback": {
+          "anyOf": [
+            {
+              "enum": [
+                "idle",
+                "long_idle",
+                "listen",
+                "think",
+                "speak",
+                "acknowledge",
+                "explain",
+                "uncertain",
+                "alert",
+                "leave",
+                "error"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fallback"
+        }
+      },
+      "title": "Motion",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "skeleton_version": {
+      "title": "Skeleton Version",
+      "type": "string"
+    },
+    "motions": {
+      "additionalProperties": {
+        "$ref": "#/$defs/Motion"
+      },
+      "propertyNames": {
+        "enum": [
+          "idle",
+          "long_idle",
+          "listen",
+          "think",
+          "speak",
+          "acknowledge",
+          "explain",
+          "uncertain",
+          "alert",
+          "leave",
+          "error"
+        ]
+      },
+      "title": "Motions",
+      "type": "object"
+    }
+  },
+  "required": [
+    "skeleton_version",
+    "motions"
+  ],
+  "title": "MotionManifest",
+  "type": "object"
+}

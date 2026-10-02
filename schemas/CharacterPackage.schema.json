@@ -1,0 +1,773 @@
+{
+  "$defs": {
+    "Capabilities": {
+      "additionalProperties": false,
+      "properties": {
+        "body_topology": {
+          "enum": [
+            "humanoid",
+            "quadruped",
+            "multiped",
+            "serpentine",
+            "custom"
+          ],
+          "title": "Body Topology",
+          "type": "string"
+        },
+        "face_mode": {
+          "enum": [
+            "blendshape",
+            "bone_face",
+            "jaw_only",
+            "none"
+          ],
+          "title": "Face Mode",
+          "type": "string"
+        },
+        "eye_mode": {
+          "default": "none",
+          "enum": [
+            "none",
+            "paired",
+            "custom"
+          ],
+          "title": "Eye Mode",
+          "type": "string"
+        },
+        "appendages": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Appendages",
+          "type": "array"
+        },
+        "controller": {
+          "enum": [
+            "humanoid",
+            "creature"
+          ],
+          "title": "Controller",
+          "type": "string"
+        },
+        "motion_mode": {
+          "enum": [
+            "native_clips",
+            "retargeted_clips",
+            "procedural"
+          ],
+          "title": "Motion Mode",
+          "type": "string"
+        },
+        "active_streams": {
+          "items": {
+            "enum": [
+              "audio",
+              "motion",
+              "face"
+            ],
+            "type": "string"
+          },
+          "title": "Active Streams",
+          "type": "array"
+        }
+      },
+      "required": [
+        "body_topology",
+        "face_mode",
+        "controller",
+        "motion_mode",
+        "active_streams"
+      ],
+      "title": "Capabilities",
+      "type": "object"
+    },
+    "FaceChannel": {
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "target": {
+          "title": "Target",
+          "type": "string"
+        },
+        "minimum": {
+          "default": 0,
+          "title": "Minimum",
+          "type": "number"
+        },
+        "maximum": {
+          "default": 1,
+          "title": "Maximum",
+          "type": "number"
+        },
+        "renderers": {
+          "items": {
+            "enum": [
+              "3d",
+              "2d"
+            ],
+            "type": "string"
+          },
+          "maxItems": 1,
+          "minItems": 1,
+          "title": "Renderers",
+          "type": "array"
+        }
+      },
+      "required": [
+        "source",
+        "target"
+      ],
+      "title": "FaceChannel",
+      "type": "object"
+    },
+    "FaceMap": {
+      "additionalProperties": false,
+      "properties": {
+        "channels": {
+          "items": {
+            "$ref": "#/$defs/FaceChannel"
+          },
+          "title": "Channels",
+          "type": "array"
+        }
+      },
+      "title": "FaceMap",
+      "type": "object"
+    },
+    "Joint": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "parent": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Parent"
+        },
+        "semantic": {
+          "title": "Semantic",
+          "type": "string"
+        },
+        "rest_translation": {
+          "default": [
+            0,
+            0,
+            0
+          ],
+          "maxItems": 3,
+          "minItems": 3,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Rest Translation",
+          "type": "array"
+        },
+        "rest_rotation_xyzw": {
+          "default": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "maxItems": 4,
+          "minItems": 4,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Rest Rotation Xyzw",
+          "type": "array"
+        },
+        "local_axis": {
+          "default": [
+            1,
+            0,
+            0
+          ],
+          "maxItems": 3,
+          "minItems": 3,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Local Axis",
+          "type": "array"
+        },
+        "angle_limits_deg": {
+          "default": [
+            -10,
+            10
+          ],
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Angle Limits Deg",
+          "type": "array"
+        },
+        "owner": {
+          "enum": [
+            "base",
+            "expression",
+            "speech",
+            "gaze"
+          ],
+          "title": "Owner",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "parent",
+        "semantic",
+        "owner"
+      ],
+      "title": "Joint",
+      "type": "object"
+    },
+    "Motion": {
+      "additionalProperties": false,
+      "properties": {
+        "file": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "File"
+        },
+        "procedural": {
+          "anyOf": [
+            {
+              "enum": [
+                "neutral",
+                "head_nod",
+                "speech_rhythm"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Procedural"
+        },
+        "duration_s": {
+          "default": 1,
+          "exclusiveMinimum": 0,
+          "maximum": 60,
+          "title": "Duration S",
+          "type": "number"
+        },
+        "loop": {
+          "default": false,
+          "title": "Loop",
+          "type": "boolean"
+        },
+        "blend_s": {
+          "default": 0.15,
+          "maximum": 2,
+          "minimum": 0,
+          "title": "Blend S",
+          "type": "number"
+        },
+        "fallback": {
+          "anyOf": [
+            {
+              "enum": [
+                "idle",
+                "long_idle",
+                "listen",
+                "think",
+                "speak",
+                "acknowledge",
+                "explain",
+                "uncertain",
+                "alert",
+                "leave",
+                "error"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fallback"
+        }
+      },
+      "title": "Motion",
+      "type": "object"
+    },
+    "MotionManifest": {
+      "additionalProperties": false,
+      "properties": {
+        "skeleton_version": {
+          "title": "Skeleton Version",
+          "type": "string"
+        },
+        "motions": {
+          "additionalProperties": {
+            "$ref": "#/$defs/Motion"
+          },
+          "propertyNames": {
+            "enum": [
+              "idle",
+              "long_idle",
+              "listen",
+              "think",
+              "speak",
+              "acknowledge",
+              "explain",
+              "uncertain",
+              "alert",
+              "leave",
+              "error"
+            ]
+          },
+          "title": "Motions",
+          "type": "object"
+        }
+      },
+      "required": [
+        "skeleton_version",
+        "motions"
+      ],
+      "title": "MotionManifest",
+      "type": "object"
+    },
+    "Profile": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "0.1.0",
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "character_id": {
+          "pattern": "^[a-zA-Z0-9_-]{1,80}$",
+          "title": "Character Id",
+          "type": "string"
+        },
+        "display_name": {
+          "title": "Display Name",
+          "type": "string"
+        },
+        "persona": {
+          "title": "Persona",
+          "type": "string"
+        },
+        "package_status": {
+          "default": "template_only",
+          "enum": [
+            "template_only",
+            "asset_candidate",
+            "validated"
+          ],
+          "title": "Package Status",
+          "type": "string"
+        },
+        "model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "model.glb",
+          "title": "Model"
+        },
+        "display_rotation_y_deg": {
+          "default": 0,
+          "maximum": 360,
+          "minimum": -360,
+          "title": "Display Rotation Y Deg",
+          "type": "number"
+        },
+        "display_height_m": {
+          "default": 2.05,
+          "exclusiveMinimum": 0,
+          "maximum": 10,
+          "title": "Display Height M",
+          "type": "number"
+        },
+        "renderer_2d": {
+          "default": "portrait",
+          "enum": [
+            "portrait",
+            "cubism"
+          ],
+          "title": "Renderer 2D",
+          "type": "string"
+        },
+        "live2d_model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Live2D Model"
+        },
+        "live2d_parameter_map": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Live2D Parameter Map",
+          "type": "object"
+        },
+        "native_animation_map": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Native Animation Map",
+          "type": "object"
+        },
+        "presentation_modes": {
+          "items": {
+            "enum": [
+              "3d",
+              "2d"
+            ],
+            "type": "string"
+          },
+          "maxItems": 1,
+          "minItems": 1,
+          "title": "Presentation Modes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "character_id",
+        "display_name",
+        "persona"
+      ],
+      "title": "Profile",
+      "type": "object"
+    },
+    "Provenance": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "project_authored_fixture",
+            "external_asset",
+            "generated_asset"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "sources": {
+          "items": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object"
+          },
+          "title": "Sources",
+          "type": "array"
+        },
+        "seed": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Seed"
+        },
+        "generation_record": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Generation Record"
+        },
+        "notes": {
+          "title": "Notes",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "sources",
+        "notes"
+      ],
+      "title": "Provenance",
+      "type": "object"
+    },
+    "QAReport": {
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "not_run",
+            "failed",
+            "passed"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "checks": {
+          "additionalProperties": {
+            "enum": [
+              "pending",
+              "failed",
+              "passed"
+            ],
+            "type": "string"
+          },
+          "title": "Checks",
+          "type": "object"
+        },
+        "known_issues": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Known Issues",
+          "type": "array"
+        }
+      },
+      "required": [
+        "status",
+        "checks",
+        "known_issues"
+      ],
+      "title": "QAReport",
+      "type": "object"
+    },
+    "RigMap": {
+      "additionalProperties": false,
+      "properties": {
+        "skeleton_version": {
+          "title": "Skeleton Version",
+          "type": "string"
+        },
+        "coordinate_system": {
+          "const": "right_handed_y_up_meters",
+          "title": "Coordinate System",
+          "type": "string"
+        },
+        "root_motion_node": {
+          "title": "Root Motion Node",
+          "type": "string"
+        },
+        "joints": {
+          "items": {
+            "$ref": "#/$defs/Joint"
+          },
+          "minItems": 1,
+          "title": "Joints",
+          "type": "array"
+        }
+      },
+      "required": [
+        "skeleton_version",
+        "coordinate_system",
+        "root_motion_node",
+        "joints"
+      ],
+      "title": "RigMap",
+      "type": "object"
+    },
+    "VoiceProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "backend": {
+          "enum": [
+            "replay",
+            "cosyvoice3",
+            "qwen3_base"
+          ],
+          "title": "Backend",
+          "type": "string"
+        },
+        "model_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Model Id"
+        },
+        "revision": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Revision"
+        },
+        "reference_audio": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reference Audio"
+        },
+        "reference_text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reference Text"
+        },
+        "reference_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reference Sha256"
+        },
+        "supported_styles": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Supported Styles",
+          "type": "array"
+        },
+        "design_prompt": {
+          "title": "Design Prompt",
+          "type": "string"
+        },
+        "effects": {
+          "const": "dry",
+          "default": "dry",
+          "title": "Effects",
+          "type": "string"
+        }
+      },
+      "required": [
+        "backend",
+        "design_prompt"
+      ],
+      "title": "VoiceProfile",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "profile": {
+      "$ref": "#/$defs/Profile"
+    },
+    "capabilities": {
+      "$ref": "#/$defs/Capabilities"
+    },
+    "rig_map": {
+      "$ref": "#/$defs/RigMap"
+    },
+    "face_map": {
+      "$ref": "#/$defs/FaceMap"
+    },
+    "motion_manifest": {
+      "$ref": "#/$defs/MotionManifest"
+    },
+    "voice_profile": {
+      "$ref": "#/$defs/VoiceProfile"
+    },
+    "provenance": {
+      "$ref": "#/$defs/Provenance"
+    },
+    "qa_report": {
+      "$ref": "#/$defs/QAReport"
+    }
+  },
+  "required": [
+    "profile",
+    "capabilities",
+    "rig_map",
+    "face_map",
+    "motion_manifest",
+    "voice_profile",
+    "provenance",
+    "qa_report"
+  ],
+  "title": "CharacterPackage",
+  "type": "object"
+}

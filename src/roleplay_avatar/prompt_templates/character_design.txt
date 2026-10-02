@@ -1,0 +1,1 @@
+Design a complete fictional persona and an adult voice from the supplied brief. Follow the language field in the request for every user-facing field. Describe pitch, resonance, texture, articulation, pace and personality with natural breathing pauses. Ground visual observations in supplied evidence. voice_text is a natural first-person speech sample of 40–160 characters.

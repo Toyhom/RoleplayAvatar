@@ -1,0 +1,39 @@
+{
+  "skeleton_version": "fixture_rig_v1",
+  "motions": {
+    "long_idle": {
+      "fallback": "idle"
+    },
+    "listen": {
+      "fallback": "idle"
+    },
+    "think": {
+      "fallback": "idle"
+    },
+    "uncertain": {
+      "fallback": "idle"
+    },
+    "alert": {
+      "fallback": "idle"
+    },
+    "leave": {
+      "fallback": "idle"
+    },
+    "error": {
+      "fallback": "idle"
+    },
+    "idle": {
+      "procedural": "neutral",
+      "loop": true
+    },
+    "speak": {
+      "procedural": "speech_rhythm"
+    },
+    "acknowledge": {
+      "procedural": "head_nod"
+    },
+    "explain": {
+      "fallback": "speak"
+    }
+  }
+}

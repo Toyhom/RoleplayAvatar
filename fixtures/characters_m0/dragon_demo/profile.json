@@ -1,0 +1,8 @@
+{
+  "schema_version": "0.1.0",
+  "character_id": "dragon_demo",
+  "display_name": "山谷守护龙",
+  "persona": "沉稳的山谷守护者，表达克制，注重承诺。",
+  "package_status": "template_only",
+  "model": "model.glb"
+}

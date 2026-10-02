@@ -1,0 +1,15 @@
+{
+  "body_topology": "quadruped",
+  "face_mode": "jaw_only",
+  "eye_mode": "none",
+  "appendages": [
+    "wings",
+    "tail"
+  ],
+  "controller": "creature",
+  "motion_mode": "procedural",
+  "active_streams": [
+    "audio",
+    "motion"
+  ]
+}
