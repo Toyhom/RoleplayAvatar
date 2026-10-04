@@ -99,7 +99,7 @@ vLLM の `extra_args: ["--compilation-config", "{\"mode\":0}"]` は Torch コン
 
 ## 音声と画像の最適化
 
-**音声認識：**`faster-whisper` 環境をインストールし、CTranslate2 形式の Whisper を使います。Transformers 形式は、CTranslate2、Transformers、Torch を備えた環境で変換できます。
+**音声認識：** `faster-whisper` 環境をインストールし、CTranslate2 形式の Whisper を使います。Transformers 形式は、CTranslate2、Transformers、Torch を備えた環境で変換できます。
 
 ```bash
 ct2-transformers-converter --model /srv/models/whisper \
@@ -111,11 +111,11 @@ ct2-transformers-converter --model /srv/models/whisper \
 
 準備完了前にウォームアップします。`--no-warmup` で省略できます。既存の `/transcribe` プロトコルと自動言語検出を維持します。`--beam-size 1` は低遅延向けで、ビーム幅を増やすと認識が改善する場合があります。CPU では `--device cpu --compute-type int8` を指定します。CUDA/cuDNN の条件は [faster-whisper](https://github.com/SYSTRAN/faster-whisper) を参照してください。
 
-**Qwen3-TTS：**`family_speech_service.py --backend qwen-base` は参照音声の条件を最大八件キャッシュします。音声やテキストの変更で対応するキャッシュを更新します。`--voice-cache-size 0` で無効化でき、`/healthz` にヒット数を表示します。`--attention sdpa`、または対応する FlashAttention を導入した環境で `--attention flash_attention_2` を選び、`--dtype` で精度を設定します。文ごとに音声を生成し、連続した 24 kHz PCM として分割送信します。
+**Qwen3-TTS：** `family_speech_service.py --backend qwen-base` は参照音声の条件を最大八件キャッシュします。音声やテキストの変更で対応するキャッシュを更新します。`--voice-cache-size 0` で無効化でき、`/healthz` にヒット数を表示します。`--attention sdpa`、または対応する FlashAttention を導入した環境で `--attention flash_attention_2` を選び、`--dtype` で精度を設定します。文ごとに音声を生成し、連続した 24 kHz PCM として分割送信します。
 
-**CosyVoice3：**`speech_service.py --fp16` は半精度推論、`--tensorrt` は上流の flow エンジンを有効にします。専用環境に対応する TensorRT を導入します。対象 GPU で起動時にエンジンを構築し、そのデプロイと一緒に保存します。[CosyVoice](https://github.com/FunAudioLLM/CosyVoice) を参照してください。
+**CosyVoice3：** `speech_service.py --fp16` は半精度推論、`--tensorrt` は上流の flow エンジンを有効にします。専用環境に対応する TensorRT を導入します。対象 GPU で起動時にエンジンを構築し、そのデプロイと一緒に保存します。[CosyVoice](https://github.com/FunAudioLLM/CosyVoice) を参照してください。
 
-**画像：**`models.image.offload` または `models.image_edit.offload` は `model`（既定）、`sequential`（常駐 VRAM を減らし転送を増やす）、`none`（GPU 常駐）を選べます。VAE が対応している場合、`vae_tiling` と `vae_slicing` は既定で有効です。`compile=true` と `offload="none"` は Torch コンパイルを使い、同じ形状を繰り返す場合に適しています。コールドスタート時間は増えます。通常の作成ワーカーは各段階を別プロセスで実行します。
+**画像：** `models.image.offload` または `models.image_edit.offload` は `model`（既定）、`sequential`（常駐 VRAM を減らし転送を増やす）、`none`（GPU 常駐）を選べます。VAE が対応している場合、`vae_tiling` と `vae_slicing` は既定で有効です。`compile=true` と `offload="none"` は Torch コンパイルを使い、同じ形状を繰り返す場合に適しています。コールドスタート時間は増えます。通常の作成ワーカーは各段階を別プロセスで実行します。
 
 ## 自分の環境で測定する
 

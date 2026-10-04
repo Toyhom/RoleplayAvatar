@@ -94,7 +94,7 @@ AVATAR_AUDIO_FACE_URL=http://127.0.0.1:18130
 AVATAR_CREATION_RUNNER=local
 ```
 
-GPUQ では `AVATAR_CREATION_RUNNER=gpuq` を使います。`AVATAR_CREATION_GPUS` は順次実行する作成ワーカーの GPU 数で、既定は一枚です。`bash scripts/serve.sh` を実行し、http://localhost:18080 と `/api/services` を確認します。上部で英語・中国語・日本語を選択できます。作成言語は画面から伝わり、ASR は `auto` を推奨します。
+GPUQ では `AVATAR_CREATION_RUNNER=gpuq` を使います。`AVATAR_CREATION_GPUS` は順次実行する作成ワーカーの GPU 数で、既定は一枚です。`bash scripts/serve.sh` を実行し、[http://localhost:18080](http://localhost:18080) と `/api/services` を確認します。上部で英語・中国語・日本語を選択できます。作成言語は画面から伝わり、ASR は `auto` を推奨します。
 
 モデル設定は対象プロセスの再起動で反映されます。`scripts/demo.py` は設定済みの三ノード GPUQ 管理用、各サービスコマンドと Web 起動は可搬性のある入口です。
 

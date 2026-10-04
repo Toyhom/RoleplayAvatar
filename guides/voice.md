@@ -31,12 +31,21 @@ The creation request’s `locale` selects English, Chinese or Japanese persona t
 For reference-conditioned multilingual speech, set `models.voice_clone.path` to a Base checkpoint and use this entry in your service-group configuration:
 
 ```json
-"tts": {
-  "python": "${AVATAR_QWEN_PYTHON}",
-  "script": "services/family_speech_service.py",
-  "model_role": "voice_clone",
-  "port": 18120,
-  "args": ["--backend", "qwen-base", "--language", "Auto"]
+{
+  "services": {
+    "tts": {
+      "python": "${AVATAR_QWEN_PYTHON}",
+      "script": "services/family_speech_service.py",
+      "model_role": "voice_clone",
+      "port": 18120,
+      "args": [
+        "--backend",
+        "qwen-base",
+        "--language",
+        "Auto"
+      ]
+    }
+  }
 }
 ```
 

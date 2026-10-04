@@ -31,12 +31,21 @@ VoiceDesign は音域、共鳴、質感、発音、速度、性格などの自�
 参照音声を使って多言語で合成する場合、`models.voice_clone.path` に Base チェックポイントを指定し、サービスグループに次の設定を加えます。
 
 ```json
-"tts": {
-  "python": "${AVATAR_QWEN_PYTHON}",
-  "script": "services/family_speech_service.py",
-  "model_role": "voice_clone",
-  "port": 18120,
-  "args": ["--backend", "qwen-base", "--language", "Auto"]
+{
+  "services": {
+    "tts": {
+      "python": "${AVATAR_QWEN_PYTHON}",
+      "script": "services/family_speech_service.py",
+      "model_role": "voice_clone",
+      "port": 18120,
+      "args": [
+        "--backend",
+        "qwen-base",
+        "--language",
+        "Auto"
+      ]
+    }
+  }
 }
 ```
 

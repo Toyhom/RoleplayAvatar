@@ -100,7 +100,7 @@ Set `AVATAR_CREATION_RUNNER=gpuq` on a GPUQ cluster. `AVATAR_CREATION_GPUS` sele
 bash scripts/serve.sh
 ```
 
-Visit http://localhost:18080 and inspect `/api/services`. Model configuration changes take effect when the corresponding service restarts. `scripts/demo.py` is the administrator launcher for a configured three-node GPUQ deployment; individual service commands and the web process provide the portable interfaces.
+Visit [http://localhost:18080](http://localhost:18080) and inspect `/api/services`. Model configuration changes take effect when the corresponding service restarts. `scripts/demo.py` is the administrator launcher for a configured three-node GPUQ deployment; individual service commands and the web process provide the portable interfaces.
 
 ## 5. Backend-only deployments
 

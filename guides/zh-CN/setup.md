@@ -94,7 +94,7 @@ AVATAR_AUDIO_FACE_URL=http://127.0.0.1:18130
 AVATAR_CREATION_RUNNER=local
 ```
 
-GPUQ 集群使用 `AVATAR_CREATION_RUNNER=gpuq`；`AVATAR_CREATION_GPUS` 决定顺序创建工作进程的 GPU 数，默认 1。启动 `bash scripts/serve.sh`，访问 http://localhost:18080 并查看 `/api/services`。顶部可选英文、中文、日文；创建语言随界面传入，语音识别推荐 `auto`。
+GPUQ 集群使用 `AVATAR_CREATION_RUNNER=gpuq`；`AVATAR_CREATION_GPUS` 决定顺序创建工作进程的 GPU 数，默认 1。启动 `bash scripts/serve.sh`，访问 [http://localhost:18080](http://localhost:18080) 并查看 `/api/services`。顶部可选英文、中文、日文；创建语言随界面传入，语音识别推荐 `auto`。
 
 模型设置在对应进程重启后生效。`scripts/demo.py` 用于已配置的三节点 GPUQ 管理部署；单服务命令和 Web 进程是可移植入口。
 

@@ -31,12 +31,21 @@ VoiceDesign 接收音域、共鸣、音质、吐字、语速和性格等自然�
 使用参考声线进行多语言合成时，将 `models.voice_clone.path` 指向 Base 检查点，并在服务组配置中加入：
 
 ```json
-"tts": {
-  "python": "${AVATAR_QWEN_PYTHON}",
-  "script": "services/family_speech_service.py",
-  "model_role": "voice_clone",
-  "port": 18120,
-  "args": ["--backend", "qwen-base", "--language", "Auto"]
+{
+  "services": {
+    "tts": {
+      "python": "${AVATAR_QWEN_PYTHON}",
+      "script": "services/family_speech_service.py",
+      "model_role": "voice_clone",
+      "port": 18120,
+      "args": [
+        "--backend",
+        "qwen-base",
+        "--language",
+        "Auto"
+      ]
+    }
+  }
 }
 ```
 

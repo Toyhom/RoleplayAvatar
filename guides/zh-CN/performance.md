@@ -99,7 +99,7 @@ vLLM 可通过 `extra_args: ["--compilation-config", "{\"mode\":0}"]` 使用原�
 
 ## 语音与图像优化
 
-**语音识别：**安装 `faster-whisper` 环境，使用 CTranslate2 格式的 Whisper 权重。已有 Transformers 权重可在装有 CTranslate2、Transformers 和 Torch 的环境中转换：
+**语音识别：** 安装 `faster-whisper` 环境，使用 CTranslate2 格式的 Whisper 权重。已有 Transformers 权重可在装有 CTranslate2、Transformers 和 Torch 的环境中转换：
 
 ```bash
 ct2-transformers-converter --model /srv/models/whisper \
@@ -111,11 +111,11 @@ ct2-transformers-converter --model /srv/models/whisper \
 
 服务在就绪前完成预热，`--no-warmup` 可跳过。它保持现有麦克风 `/transcribe` 协议与自动语言检测。`--beam-size 1` 优先考虑延迟，增加束宽可改善识别；CPU 使用 `--device cpu --compute-type int8`。[faster-whisper](https://github.com/SYSTRAN/faster-whisper) 文档列出 CTranslate2 的 CUDA/cuDNN 要求。
 
-**Qwen3-TTS：**`family_speech_service.py --backend qwen-base` 默认缓存八份参考声线条件。修改参考音频或文本会使对应缓存失效。`--voice-cache-size 0` 关闭缓存，`/healthz` 显示命中次数。`--attention sdpa` 使用原生注意力；安装匹配的 FlashAttention 后可用 `--attention flash_attention_2`，`--dtype` 控制精度。音频按句生成，再以连续的 24 kHz PCM 分块发送。
+**Qwen3-TTS：** `family_speech_service.py --backend qwen-base` 默认缓存八份参考声线条件。修改参考音频或文本会使对应缓存失效。`--voice-cache-size 0` 关闭缓存，`/healthz` 显示命中次数。`--attention sdpa` 使用原生注意力；安装匹配的 FlashAttention 后可用 `--attention flash_attention_2`，`--dtype` 控制精度。音频按句生成，再以连续的 24 kHz PCM 分块发送。
 
-**CosyVoice3：**`speech_service.py --fp16` 启用原生半精度路径，`--tensorrt` 启用上游 flow 引擎。匹配的 TensorRT 依赖安装在独立环境中；引擎在目标 GPU 上首次启动时构建，其产物随该部署保留。参见 [CosyVoice](https://github.com/FunAudioLLM/CosyVoice)。
+**CosyVoice3：** `speech_service.py --fp16` 启用原生半精度路径，`--tensorrt` 启用上游 flow 引擎。匹配的 TensorRT 依赖安装在独立环境中；引擎在目标 GPU 上首次启动时构建，其产物随该部署保留。参见 [CosyVoice](https://github.com/FunAudioLLM/CosyVoice)。
 
-**图像：**`models.image.offload` 或 `models.image_edit.offload` 支持 `model`（默认）、`sequential`（降低驻留显存，增加传输）、`none`（全部驻留 GPU）。VAE 支持时，`vae_tiling` 和 `vae_slicing` 默认开启。`compile=true` 配合 `offload="none"` 启用 Torch 编译，适合反复使用相同尺寸的服务，会增加冷启动时间。创建流程通常为每个阶段启动独立进程。
+**图像：** `models.image.offload` 或 `models.image_edit.offload` 支持 `model`（默认）、`sequential`（降低驻留显存，增加传输）、`none`（全部驻留 GPU）。VAE 支持时，`vae_tiling` 和 `vae_slicing` 默认开启。`compile=true` 配合 `offload="none"` 启用 Torch 编译，适合反复使用相同尺寸的服务，会增加冷启动时间。创建流程通常为每个阶段启动独立进程。
 
 ## 测量自己的部署
 
