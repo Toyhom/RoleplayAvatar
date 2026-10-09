@@ -11,6 +11,7 @@ from pathlib import Path
 
 import cv2
 import numpy as np
+from lip_contour import trace_lip
 from PIL import Image
 
 
@@ -67,10 +68,7 @@ def build(package: Path):
         xs = np.arange(int(x0), int(x1) + 1)
         ys = np.array([np.median(yy[xx == x - left]) + top for x in xs])
     else:
-        # Skin illumination varies across a face. An absolute dark threshold
-        # would truncate the brighter half of a softly painted lip.
-        xs = np.arange(int(x0), int(x1) + 1)
-        ys = np.array([float(np.argmin(gray[int(ymin) : int(ymax) + 1, x]) + int(ymin)) for x in xs])
+        xs, ys = trace_lip(gray, x0, x1, ymin, ymax)
     ys = cv2.GaussianBlur(ys.reshape(1, -1), (5, 1), 1).ravel()
     curve_x = np.linspace(x0, x1, 33)
     curve_y = np.interp(curve_x, xs, ys)
@@ -115,6 +113,7 @@ def build(package: Path):
         "smile_steps": 0,
         "lip_x_px": [float(x0), float(x1)],
         "lip_curve_y_px": curve_y.tolist(),
+        "contour_method": "continuous-dark-path-v1" if not old["missing_source_mouth_repaired"] else "connected-ink",
         "max_open_px": float(width * 0.34),
         "source_sha256": source_hash,
         "missing_source_mouth_repaired": old["missing_source_mouth_repaired"],
