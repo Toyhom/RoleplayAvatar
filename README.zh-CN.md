@@ -10,7 +10,7 @@
 
 框架连接可替换的角色扮演、角色设计、语音和动画模型，可使用本地模型、厂商 API，或混合部署。纯后端 API 提供相同的角色创建和对话流程，方便应用开发和角色扮演研究。
 
-https://github.com/user-attachments/assets/556ac18a-fe2e-4d63-8d5b-b694ded76a69
+https://github.com/user-attachments/assets/063966a0-8026-4ea3-9808-e0718b1cb242
 
 **30 秒功能介绍：** [English](README.md) · [简体中文](README.zh-CN.md) · [日本語](README.ja.md)
 
